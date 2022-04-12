@@ -22,4 +22,14 @@ We have weekly meetings on Fridays and each sprint starting from  Mondays and la
 
 ## UI Wireframes
 
-![Reservation.pdf](https://github.com/gopinathsjsu/team-project-4thepeople/files/8477069/Reservation.pdf)
+Sign Up:
+
+<img width="1147" alt="Screen Shot 2022-04-12 at 4 24 48 PM" src="https://user-images.githubusercontent.com/26342510/163070392-153682b9-8435-4b4d-b8f5-2f8018036d27.png">
+
+Login:
+
+<img width="1147" alt="Screen Shot 2022-04-12 at 4 25 55 PM" src="https://user-images.githubusercontent.com/26342510/163070465-05068144-373e-421b-84a5-62625b5ad0db.png">
+
+Reservation Form:
+
+<img width="1141" alt="Screen Shot 2022-04-12 at 4 26 59 PM" src="https://user-images.githubusercontent.com/26342510/163070564-794fee83-32f6-4d74-8dee-44c899ce7cf3.png">
