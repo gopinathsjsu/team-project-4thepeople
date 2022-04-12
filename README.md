@@ -13,3 +13,13 @@
 1. frontend - contains the frontend apps codebase. 
 2. backend - contains the backend apps codebase.
 3. documentation - contains the documentation of the backend module.
+
+## Scrum Meeting
+We have weekly meetings on Fridays and each sprint starting from  Mondays and lasting for a week
+
+## Architecture Diagram
+![Architecture](https://user-images.githubusercontent.com/26342510/163069887-5ad39fcf-b4e0-47e2-b93b-65c923d0335e.jpeg)
+
+## UI Wireframes
+
+![Reservation.pdf](https://github.com/gopinathsjsu/team-project-4thepeople/files/8477069/Reservation.pdf)
