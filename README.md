@@ -16,6 +16,7 @@
 
 ## Scrum Meeting
 We have weekly meetings on Fridays and each sprint starting from  Mondays and lasting for a week
+Jira Link - https://cmpe202.atlassian.net/jira/software/projects/RD4/boards/2/backlog
 
 ## XP Core Values
 
