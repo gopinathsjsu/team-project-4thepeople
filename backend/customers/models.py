@@ -12,12 +12,6 @@ class Customer(models.Model):
     state = models.CharField(max_length=30, blank=True)
     zip_code = models.IntegerField(blank=True)
 
-    """
-    profile_image = models.ImageField(upload_to="media", 
-                                    height_field=None, 
-                                    width_field=None, max_length=None, blank=True)
-    """
-
     def __str__(self):
         return "Customer: " + self.username
 
