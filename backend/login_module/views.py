@@ -29,7 +29,7 @@ def user_signup(request):
     return render(request, 'login/user_signup.html', {})
 
 
-def user_sigin(request):
+def user_signin(request):
     if request.method == "POST":
         username = request.POST['user_name']
         password = request.POST['password']
