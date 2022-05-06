@@ -1,88 +1,94 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
-from login_module.models import Customer
+from booking.models import Room, Contact
+from datetime import date
+import datetime
+import calendar
+from abc import ABC, abstractmethod
 
 
 # API View here
-class UsersSignupAPI(APIView):
-    @staticmethod
-    def post(request):
-        user_name = request.POST["user_name"]
-        email_address = request.POST["email_address"]
+class CustomersAPI(APIView):
+    def get(self, request):
+        return Response(
+            {"status": "success",
+             "data": "Successful Get Request"
+            }, status=status.HTTP_200_OK)
 
-        # account check
-        if Customer.objects.filter(username=user_name) or Customer.objects.filter(email=email_address):
-            return Response({
-                "status": "error",
-                "message": "Account already exist, please Login to continue"},
-                status=status.HTTP_409_CONFLICT)
+
+#Dynamic pricing - Strategy
+class Strategy(ABC):
+    @abstractmethod
+    def pricingScheme(self):
+        pass
+
+class weekdayPricing(Strategy):
+    def pricingScheme(self):
+        print("weekday no inc in price")
+        percentageIncrease = 0
+        return percentageIncrease
+
+class weekendPricing(Strategy):
+    def pricingScheme(self):
+        print("weekend rise in price")
+        percentageIncrease = 5
+        return percentageIncrease
+
+class Default(Strategy):
+    def pricingScheme(self) -> int:
+        return 0
+
+class DynamicPricing():
+
+    strategy : Strategy
+
+    def setStrategy(self, strategy: Strategy = None) -> None:
+        self.strategy = strategy
+
+    def executeStrategy(self) -> int:
+        result = self.strategy.pricingScheme()
+        return result;
+
+# Room API
+class RoomDetails(APIView):
+    def get(self, request):
+        room_details = Room.objects.all().values()
+        api_response = {}
+        today = date.today()
+        today_date = today.strftime("%d %m %y")
+        day  = datetime.datetime.strptime(today_date, "%d %m %y").weekday()
+        context = DynamicPricing()
+        if 0 <= day < 4:
+            context.setStrategy(weekdayPricing())
         else:
-            try:
-                password = request.POST['password']
-                contact_number = request.POST['contact']
-                password_hash = make_password(password)
+            context.setStrategy(weekendPricing())
+        dynamic_pricing_percentage = context.executeStrategy()
+        for objects in room_details:
+            if objects['is_available']:
+                objects['price'] = objects['price'] + (objects['price'] * dynamic_pricing_percentage)
+                api_response[objects['room_no']] = {
+                    'room_no' : objects['room_no'],
+                    'room_type' : objects['room_type'],
+                    'price' : objects['price'],
+                    'is_available' : objects['is_available'],
+                    'no_of_days_advance' : objects['no_of_days_advance'],
+                    'room_image' : objects['room_image'],
+                    'start_date' : objects['start_date']
+                }
 
-                customer = Customer(username=user_name,
-                                    password=password_hash,
-                                    email=email_address,
-                                    contact=contact_number)
-                customer.save()
-                return Response({
-                    "status": "success",
-                    "message": "Account Created Successfully, please Login to continue"},
-                    status=status.HTTP_200_OK)
-            except Exception as e:
-                return Response({
-                    "status": "error",
-                    "message": e},
-                    status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"status": "success",
+                             "room_detail": api_response},
+                            status=status.HTTP_200_OK)
 
-
-class UsersSigninAPI(APIView):
-    @staticmethod
-    def post(request):
-        username = request.POST['user_name']
-        password = request.POST['password']
-
-        if not len(username):
-            return Response(
-                {"status": "error",
-                 "data": "Username Field is Empty"
-                 }, status=status.HTTP_401_UNAUTHORIZED)
-        elif not len(password):
-            return Response(
-                {"status": "error",
-                 "data": "Password Field is Empty"
-                 }, status=status.HTTP_401_UNAUTHORIZED)
-        else:
-            pass
-
-        if Customer.objects.filter(username=username):
-            user = Customer.objects.filter(username=username)[0]
-            password_hash = user.password
-            res = check_password(password, password_hash)
-
-            if res == 1:
-                return Response({
-                    "status": "success",
-                    "message": "Valid"},
-                    status=status.HTTP_200_OK)
-            else:
-                return Response({
-                    "status": "error",
-                    "message": "Username or Password is Incorrect"},
-                    status=status.HTTP_401_UNAUTHORIZED)
-        else:
-            return Response({
-                "status": "error",
-                "message": "No Account exist for the given Username"},
-                status=status.HTTP_401_UNAUTHORIZED)
-
-
-
-
-
-
-
+class ContactViews(APIView):
+    def get(self, request):
+        all_contact_objects = Contact.objects.all().values()
+        api_responses = {}
+        for objects in all_contact_objects:
+            api_responses[objects['name']] = {
+                'name' : objects['name'],
+                'email' : objects['email'],
+                'message' : objects['message']
+            }
+        return Response({"status" : "success", "contact_data":api_responses}, status=status.HTTP_200_OK)
