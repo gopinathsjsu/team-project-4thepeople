@@ -14,4 +14,10 @@ export class AppComponent {
   redirect() {
     this.router.navigate(["login"])
   }
+  redirectRooms() {
+    this.router.navigate(["rooms"])
+  }
+  redirectToReserve() {
+    this.router.navigate(["reservation"])
+  }
 }
