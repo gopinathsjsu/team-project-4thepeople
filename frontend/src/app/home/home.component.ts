@@ -15,7 +15,4 @@ export class HomeComponent implements OnInit {
   redirect() {
     this.router.navigate(["login"])
   }
-  redirectToReserve() {
-    this.router.navigate(["reservation"])
-  }
 }
