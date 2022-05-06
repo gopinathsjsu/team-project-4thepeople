@@ -1,18 +1,37 @@
-// import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-// @Component({
-//   selector: 'app-reservation',
-//   templateUrl: './reservation.component.html',
-//   styleUrls: ['./reservation.component.css']
-// })
-// export class ReservationComponent implements OnInit {
+@Component({
+  selector: 'app-reservation',
+  templateUrl: './reservation.component.html',
+  styleUrls: ['./reservation.component.css']
+})
+export class ReservationComponent implements OnInit {
 
-//   constructor(private router: Router) { }
+  constructor(private router: Router) {
+    
+   }
 
-//   ngOnInit(): void {
-//   }
-//   redirecttoHome() {
-//     this.router.navigate(["home"])
-//   }
-// }
+  ngOnInit(): void {
+  }
+  redirecttoHome() {
+    this.router.navigate(["home"])
+  }
+
+  valueAdult = 0;
+  valueChildren = 0;
+
+  handleMinusAdult() {
+    this.valueAdult--;  
+  }
+  handlePlusAdult() {
+    this.valueAdult++;    
+  }
+
+  handleMinusChildren() {
+    this.valueChildren--;  
+  }
+  handlePlusChildren() {
+    this.valueChildren++;    
+  }
+}

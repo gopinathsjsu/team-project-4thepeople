@@ -1,59 +1,70 @@
-<!-- <header role="banner" class="probootstrap-header">
-     <div class="row">
-        <a href="#" class="probootstrap-burger-menu visible-xs"><i>Menu</i></a>
-        <div class="mobile-menu-overlay"></div>
-
-        <nav role="navigation" class="probootstrap-nav hidden-xs">
-          <ul class="probootstrap-main-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="rooms.html">Our Rooms</a></li>
-            <li class="hidden-xs probootstrap-logo-center"><a href="index.html"><img src="../assets/img/Paradise.png" class="hires" width="181" height="50"></a></li> -->
-            <!-- <li><a href="reservation.html">Reservation</a></li> -->
-            <!-- <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a style="cursor: pointer;" (click)="redirect()">Login</a></li>
-          </ul>
-          <div class="extra-text visible-xs">
-            <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
-            <h5>Connect With Us</h5>
-            <ul class="social-buttons">
-              <li><a href="#"><i class="icon-twitter"></i></a></li>
-              <li><a href="#"><i class="icon-facebook2"></i></a></li>
-              <li><a href="#"><i class="icon-instagram2"></i></a></li>
-            </ul>
+<section class="probootstrap-section">
+  <div class="container">
+    <div class="row probootstrap-gutter40">
+      <div class="col-md-8">
+        <h2 class="mt0">Reservation</h2>
+        <form action="#" method="post" class="probootstrap-form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname">
+              </div>
+            </div>
           </div>
-        </nav>
-      </div>
-</header>
-  <router-outlet></router-outlet>
-
-  START: footer
-  <footer role="contentinfo" class="probootstrap-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="probootstrap-footer-widget">
-            <p class="mt40"><img src="assets/img/Paradisesm.png" class="hires" width="120" height="33"></p>
-            <p>Paradise is a Hotel Booking System developed by the team FourThePeople under the guidance of Professor Gopinath Vinodh for CMPE 202 - Software Systems Engineering</p>
-            <p><a href="#" class="link-with-icon">Learn More <i class=" icon-chevron-right"></i></a></p>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email">
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="probootstrap-footer-widget">
-            <h3>Contact</h3>
-            <ul class="probootstrap-contact-info">
-              <li><i class="icon-location2"></i> <span>1 Washington Sq, San Jose, CA 95192</span></li>
-              <li><i class="icon-mail"></i><span>aryan.jadon@sjsu.edu</span></li>
-              <li><i class="icon-mail"></i><span>swathi.anandram@sjsu.edu</span></li>
-              <li><i class="icon-mail"></i><span>shreya.nimbhorkar@sjsu.edu</span></li>
-              <li><i class="icon-mail"></i><span>harika.nalam@sjsu.edu</span></li>
-            </ul>
-            
+          <div class="form-group">
+            <label for="roomtype">Room</label>
+            <input type="text" class="form-control" id="roomtype" name="roomtype">
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="arrival">Arrival</label>
+                <input type="text" class="form-control" id="arival" name="arrival">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="departure">Departure</label>
+                <input type="text" class="form-control" id="departure" name="departure">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col-md-6">
+               <div class="form-group">
+                 <div class="wrapper"></div>
+                 <label for="adults">Adults</label>
+                  <button class="plusminus" (click)="handleMinusAdult()">-</button>
+                  <input type="number" class="num" [(ngModel)]="valueAdult" />
+                  <button class="plusminus" (click)="handlePlusAdult()">+</button>
+                </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+                <div class="wrapper"></div>
+                <label for="children">Children</label>
+                  <button class="plusminus" (click)="handleMinusChildren()">-</button>
+                  <input type="number" class="num" [(ngModel)]="valueChildren" />
+                  <button class="plusminus" (click)="handlePlusChildren()">+</button>
+                </div>
+              </div>
+            </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-md" id="submit" name="Reserve" value="Reserve">
+          </div>
+        </form>
       </div>
     </div>
-  </footer> -->
-  <!-- END: footer -->
-
+  </div>
+</section>

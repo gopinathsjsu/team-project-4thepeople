@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'corsheaders',  # cors settings
     'customers',  # app
     'project_api',  # app
+    'django_jenkins'#jenkins integration
 ]
 
 MIDDLEWARE = [
