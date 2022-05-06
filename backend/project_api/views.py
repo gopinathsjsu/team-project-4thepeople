@@ -52,12 +52,11 @@ class DynamicPricing():
 
 # Room API
 class RoomDetails(APIView):
-    def get(self, request):
+    def get(self, request, datestring):
         room_details = Room.objects.all().values()
         api_response = {}
-        today = date.today()
-        today_date = today.strftime("%d %m %y")
-        day  = datetime.datetime.strptime(today_date, "%d %m %y").weekday()
+        date_time_obj = datetime.datetime.strptime(datestring, '%Y-%m-%d')
+        day  = date_time_obj.weekday()
         context = DynamicPricing()
         if 0 <= day < 4:
             context.setStrategy(weekdayPricing())
