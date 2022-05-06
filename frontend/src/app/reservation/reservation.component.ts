@@ -20,18 +20,5 @@ export class ReservationComponent implements OnInit {
 
   valueAdult = 0;
   valueChildren = 0;
-
-  handleMinusAdult() {
-    this.valueAdult--;  
-  }
-  handlePlusAdult() {
-    this.valueAdult++;    
-  }
-
-  handleMinusChildren() {
-    this.valueChildren--;  
-  }
-  handlePlusChildren() {
-    this.valueChildren++;    
-  }
+  
 }

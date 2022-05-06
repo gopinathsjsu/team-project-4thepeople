@@ -1,4 +1,4 @@
-  input[type="number"] {
+  /* input[type="number"] {
     -webkit-appearance: textfield !important;
     -moz-appearance: textfield !important;
     appearance: textfield !important;
@@ -19,8 +19,8 @@
   }
   
   .plusminus {
-    height: 100%;
-    width: 30%;
+    height: 50%;
+    width: 15%;
     background: white;
     border: none;
     font-size: 40px;
@@ -32,4 +32,16 @@
     width: 39%;
     border: none;
     font-size: 30px;
-  }
+  } */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}

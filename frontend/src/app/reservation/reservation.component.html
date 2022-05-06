@@ -30,13 +30,14 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="arrival">Arrival</label>
-                <input type="text" class="form-control" id="arival" name="arrival">
+                <!-- <input data-provide="datepicker" class="form-control" id="arrival" name="arrival" data-date-format="yyyy-mm-dd" data-date-start-date="0d" data-date-today-Highlight="true"> -->
+                <input type="date" data-date-inline-picker="true" class="form-control" id="arrival" name="arrival">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="departure">Departure</label>
-                <input type="text" class="form-control" id="departure" name="departure">
+                <input type="date" data-date-inline-picker="true" class="form-control" id="departure" name="departure">
               </div>
             </div>
           </div>
@@ -45,18 +46,18 @@
                <div class="form-group">
                  <div class="wrapper"></div>
                  <label for="adults">Adults</label>
-                  <button class="plusminus" (click)="handleMinusAdult()">-</button>
-                  <input type="number" class="num" [(ngModel)]="valueAdult" />
-                  <button class="plusminus" (click)="handlePlusAdult()">+</button>
+                  <!-- <button class="plusminus" (click)="handleMinusAdult()"></button> -->
+                  <input type="number" min ="1" max="10" class="num" [(ngModel)]="valueAdult" />
+                  <!-- <button class="plusminus" (click)="handlePlusAdult()"></button> -->
                 </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
                 <div class="wrapper"></div>
                 <label for="children">Children</label>
-                  <button class="plusminus" (click)="handleMinusChildren()">-</button>
-                  <input type="number" class="num" [(ngModel)]="valueChildren" />
-                  <button class="plusminus" (click)="handlePlusChildren()">+</button>
+                  <!-- <button class="plusminus" (click)="handleMinusChildren()"></button> -->
+                  <input type="number" min="0" max="10" class="num" [(ngModel)]="valueChildren" />
+                  <!-- <button class="plusminus" (click)="handlePlusChildren()"></button> -->
                 </div>
               </div>
             </div>
