@@ -1,0 +1,71 @@
+<section class="probootstrap-section">
+  <div class="container">
+    <div class="row probootstrap-gutter40">
+      <div class="col-md-8">
+        <h2 class="mt0">Reservation</h2>
+        <form action="#" method="post" class="probootstrap-form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="roomtype">Room</label>
+            <input type="text" class="form-control" id="roomtype" name="roomtype">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="arrival">Arrival</label>
+                <!-- <input data-provide="datepicker" class="form-control" id="arrival" name="arrival" data-date-format="yyyy-mm-dd" data-date-start-date="0d" data-date-today-Highlight="true"> -->
+                <input type="date" data-date-inline-picker="true" class="form-control" id="arrival" name="arrival">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="departure">Departure</label>
+                <input type="date" data-date-inline-picker="true" class="form-control" id="departure" name="departure">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col-md-6">
+               <div class="form-group">
+                 <div class="wrapper"></div>
+                 <label for="adults">Adults</label>
+                  <!-- <button class="plusminus" (click)="handleMinusAdult()"></button> -->
+                  <input type="number" min ="1" max="10" class="num" [(ngModel)]="valueAdult" />
+                  <!-- <button class="plusminus" (click)="handlePlusAdult()"></button> -->
+                </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+                <div class="wrapper"></div>
+                <label for="children">Children</label>
+                  <!-- <button class="plusminus" (click)="handleMinusChildren()"></button> -->
+                  <input type="number" min="0" max="10" class="num" [(ngModel)]="valueChildren" />
+                  <!-- <button class="plusminus" (click)="handlePlusChildren()"></button> -->
+                </div>
+              </div>
+            </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-md" id="submit" name="Reserve" value="Reserve">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
