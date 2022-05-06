@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { SignupComponent } from './signup/signup.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},  
   {path:'signup',component:SignupComponent},
   {path:'rooms',component:RoomsComponent},
+  {path:'reservation',component:ReservationComponent},
   {path:'**', redirectTo:'home'}
 ];
 

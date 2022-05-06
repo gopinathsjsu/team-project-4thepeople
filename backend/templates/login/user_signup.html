@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="js">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'assets/css/dashlite41fe.css' %}">
+    <link id="skin-default" rel="stylesheet"  href="{% static 'assets/css/theme41fe.css' %}">
+</head>
+<body class="nk-body bg-white npc-general pg-auth">
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+<div class="nk-app-root">
+    <div class="nk-main ">
+        <div class="nk-wrap nk-wrap-nosidebar">
+            <div class="nk-content ">
+                <div class="nk-block nk-block-middle nk-auth-body wide-xs">
+                    <div class="brand-logo pb-4 text-center">
+                        <h2>SignUp</h2>
+                    </div>
+                    <div class="card card-bordered">
+                        <div class="card-inner card-inner-lg">
+                            <div class="nk-block-head">
+                                <div class="nk-block-head-content"><h4 class="nk-block-title">Register</h4>
+                                    <div class="nk-block-des"><p>Create New Account</p></div>
+                                </div>
+                            </div>
+                            <form method="POST" action="{% url 'user_signup' %}">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label class="form-label" name="user_name" for="user_name">
+                                        Username
+                                    </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control form-control-lg"
+                                               name="user_name"
+                                               id="user_name"
+                                               placeholder="Enter your name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" name="email_address" for="email_address">
+                                        Email
+                                    </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control form-control-lg"
+                                               name= "email_address" id="email_address" placeholder="Enter your email address">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" name="password" for="password">Password</label>
+                                    <div class="form-control-wrap">
+                                        <input type="password" class="form-control form-control-lg"
+                                               name= "password"
+                                               id="password"
+                                            placeholder="Enter your passcode">
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="form-label" name="contact" for="contact">Contact Number</label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" class="form-control form-control-lg"
+                                               name= "contact"
+                                               id="contact"
+                                            placeholder="Enter your passcode">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-control-xs custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="checkbox">
+                                        <label class="custom-control-label" for="checkbox">I agree</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit"
+                                            class="btn btn-lg btn-primary btn-block">
+                                        Register
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="form-note-s2 text-center pt-4"> Already have an account?
+                                <a href="{% url 'user_signin' %}">
+                                    <strong>Sign in instead</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
