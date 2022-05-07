@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoginService } from './login.service';
 import { GlobalService } from '../global.service';
+import { transpileModule } from 'typescript';
 interface formDataInterface {
   "username": string;
   "password": string;
@@ -38,8 +39,14 @@ export class LoginComponent implements OnInit {
           'username': resJSON.data.username,
           'first_name': resJSON.data.first_name,
           'last_name': resJSON.data.last_name,
-          'email': resJSON.data.email
+          'email': resJSON.data.email,
+          'isLogged': true
         }
+        localStorage.setItem('username', resJSON.data.username)
+        localStorage.setItem('first_name', resJSON.data.first_name)
+        localStorage.setItem('last_name', resJSON.data.last_name)
+        localStorage.setItem('email', resJSON.data.email)
+        localStorage.setItem('isLogged', 'true');
         this.globalService.setUserDetails(this.userDetails);
         this.router.navigate(["home"])
       }, error => {
