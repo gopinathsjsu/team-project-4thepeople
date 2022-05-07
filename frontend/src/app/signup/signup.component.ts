@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SignupService } from './signup.service';
 
 
@@ -26,8 +27,10 @@ export class SignupComponent implements OnInit {
   password1: string = '';
   password2: string = '';
   comparedPasswordBoolean:boolean = true;
+  errors: Array<string> = [];
+  successMessage: boolean = false;
 
-  constructor(private service: SignupService) { }
+  constructor(private service: SignupService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -46,7 +49,11 @@ export class SignupComponent implements OnInit {
 
       this.service.signUpService(formData)
       .subscribe(response => {
-        console.log(response);
+        this.successMessage = true
+      }, error => {
+        for(let message in error.error.message) {
+          this.errors.push(error.error.message[message][0])
+        }
       })
     }
   }
@@ -57,5 +64,9 @@ export class SignupComponent implements OnInit {
     } else {
       this.comparedPasswordBoolean = false
     }
+  }
+
+  login() {
+    this.router.navigate(["login"])
   }
 }
