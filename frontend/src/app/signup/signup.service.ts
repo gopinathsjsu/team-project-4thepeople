@@ -10,6 +10,13 @@ export class SignupService {
   constructor(private httpClient: HttpClient) {}
 
   signUpService(form: any) {
-    return this.httpClient.post('https://sw-engineering-system.herokuapp.com/accounts/api/register/', form);
+    const formData = new FormData();
+    formData.append('email', form['email']);
+    formData.append('username', form['username']);
+    formData.append('first_name', form['first_name']);
+    formData.append('last_name', form['last_name']);
+    formData.append('password1', form['password1']);
+    formData.append('password2', form['password2']);
+    return this.httpClient.post('http://sw-engineering-system.herokuapp.com/accounts/api/register/', formData);
   }
 }

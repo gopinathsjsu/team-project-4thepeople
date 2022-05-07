@@ -16,8 +16,19 @@
             <li><a style="cursor: pointer;" (click)="redirectToReserve()">Reservation</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a style="cursor: pointer;" (click)="redirect()">Login</a></li>
+            <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="!isLoggedIn">Login</a></li>
+            <li><a style="cursor: pointer;" *ngIf="isLoggedIn">Hello, {{userDetails.first_name}}</a></li>
           </ul>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
           <div class="extra-text visible-xs">
             <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
             <h5>Connect With Us</h5>
