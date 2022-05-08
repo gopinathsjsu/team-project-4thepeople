@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.forms import inlineformset_factory
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .forms import CreateUserForm
-from .decorators import unauthenticated_user, allowed_users, admin_only
+from .decorators import unauthenticated_user, admin_only
 from accounts.models import UserProfile
+from django.contrib.auth.models import User
+from .serializer import AccountSerializer
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -123,4 +123,39 @@ class UsersSigninAPI(APIView):
             return Response({
                 "status": "error",
                 "message": "UNAUTHORIZED"},
-                status=status.HTTP_401_UNAUTHORIZED)
+                status=status.HTTP_200_OK)
+
+
+class ManageHotelAccountView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    @staticmethod
+    def post(request, *args, **kwargs):
+        try:
+            user_name = request.POST.get('username')
+            reward_points_booking = request.POST.get('reward_points')
+            user_detail = User.objects.filter(username=user_name)[0]
+            print(user_detail)
+            user_profile = UserProfile.objects.filter(user=user_detail)[0]
+            print(user_profile)
+            user_profile.total_bookings += 1
+            user_profile.total_rewards += int(reward_points_booking)
+
+            if 5 < user_profile.total_bookings < 10:
+                user_profile.user_level = "Gold"
+            elif user_profile.total_bookings > 10:
+                user_profile.user_level = "Diamond"
+            user_profile.save()
+            return Response({
+                "status": "success",
+                "message": "Details Added Successfully"},
+                status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                "status": "error",
+                "message": str(e)},
+                status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
