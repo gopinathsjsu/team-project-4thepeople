@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'crispy_forms',  # forms
     # 'customers',  # app
     'project_api',  # app
-    # 'django_jenkins',#jenkins integration
     'login_module',  # app
     'booking',  # app
 ]

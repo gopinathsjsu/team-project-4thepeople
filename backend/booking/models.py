@@ -1,6 +1,7 @@
 from django.db import models
-from login_module.models import Customer, RoomManager
+from accounts.models import Customer, RoomManager
 from datetime import date
+from django.contrib.auth.models import User
 
 
 class Contact(models.Model):
@@ -19,20 +20,17 @@ class Room(models.Model):
     is_available = models.BooleanField(default=True)
     price = models.FloatField(default=300.00)
     no_of_days_advance = models.IntegerField()
-    start_date = models.DateField(auto_now=False, auto_now_add=False)
-    room_image = models.ImageField(upload_to="media",
-                                   height_field=None,
-                                   width_field=None,
-                                   max_length=None,
-                                   default='0.jpeg')
+    start_date = models.DateField(auto_now=False,
+                                  auto_now_add=False)
+    room_image = models.CharField(max_length=500)
 
     def __str__(self):
-        return "Room No: " + str(self.id)
+        return "Room No: " + str(self.room_no)
 
 
 class Booking(models.Model):
     room_no = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     start_day = models.DateField(auto_now=False, auto_now_add=False)
     end_day = models.DateField(auto_now=False, auto_now_add=False)
     amount = models.FloatField()
