@@ -3,28 +3,72 @@
     <div class="row probootstrap-gutter40">
       <div class="col-md-8">
         <h2 class="mt0">Reservation</h2>
-        <form action="#" method="post" class="probootstrap-form">
+        <form action="#" method="post" class="probootstrap-form" #bookingForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control" id="fname" name="fname">
+                <label for="first_name">First Name</label>
+                <input ngModel type="text" #fnameInput="ngModel" [(ngModel)]="first_name" class="form-control" id="first_name" name="first_name">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control" id="lname" name="lname">
+                <label for="last_name">Last Name</label>
+                <input ngModel type="text" #lnameInput="ngModel" [(ngModel)]="last_name" class="form-control" id="last_name" name="last_name">
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" name="email">
+            <input ngModel type="email" #emailInput="ngModel" [(ngModel)]="email" class="form-control" id="email" name="email">
           </div>
-          <div class="form-group">
-            <label for="roomtype">Room</label>
-            <input type="text" class="form-control" id="roomtype" name="roomtype">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="roomtype">Room</label>
+                <div class="dropdown">
+                  <ng-multiselect-dropdown
+                    [placeholder]="'Select Room Type'"
+                    [settings]="dropdownSettings"
+                    [data]="dropdownList"
+                    [(ngModel)]="selectedItems"
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                   >
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+               <label for="amenities">Amenities</label>
+                <div class="dropdown">
+                  <ng-multiselect-dropdown
+                    [placeholder]="'Select Amenities'"
+                    [settings]="dropdownSettings"
+                    [data]="dropdownList1"
+                    [(ngModel)]="selectedItems1"
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                   >
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="roomno">Number of Rooms</label>
+                <input type="number" min ="1" max="10" class="form-control"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="guests">Number of Guests &nbsp;</label>
+                <input type="number" min ="1" max="10" class="form-control"/>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -41,25 +85,17 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
              <div class="col-md-6">
                <div class="form-group">
-                 <div class="wrapper"></div>
-                 <label for="adults">Adults</label>
-                  <!-- <button class="plusminus" (click)="handleMinusAdult()"></button> -->
-                  <input type="number" min ="1" max="10" class="num" [(ngModel)]="valueAdult" />
-                  <!-- <button class="plusminus" (click)="handlePlusAdult()"></button> -->
+                 <label for="adults">Number of Guests &nbsp;</label>
+                  <input type="number" min ="1" max="10" class="num" [(ngModel)]="value" />
                 </div>
               </div>
-              <div class="col-md-6">
-              <div class="form-group">
-                <div class="wrapper"></div>
-                <label for="children">Children</label>
-                  <!-- <button class="plusminus" (click)="handleMinusChildren()"></button> -->
-                  <input type="number" min="0" max="10" class="num" [(ngModel)]="valueChildren" />
-                  <!-- <button class="plusminus" (click)="handlePlusChildren()"></button> -->
-                </div>
-              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="totalcost">Total Cost</label>
+              <input type="text" class="form-control" id="totalcost" name="totalcost">
             </div>
           <div class="form-group">
             <input type="submit" class="btn btn-primary btn-md" id="submit" name="Reserve" value="Reserve">
