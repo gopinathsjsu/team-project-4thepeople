@@ -1,181 +1,181 @@
-
-  <section class="probootstrap-cta probootstrap-light">
-    <div class="container">
+<section class="probootstrap-cta probootstrap-light">
+  <div class="container">
+    <div class="row">
       <div class="row">
-        <div class="row">
-          <div class="col-md-4">
-            <label for="location">Location</label><br>
-            <mat-form-field>
-              <mat-label>Enter Location</mat-label>
-              <input matInput [(ngModel)]="location">
-            </mat-form-field>
+        <div class="col-md-4">
+          <label for="location">Location</label>
+          <div class="dropdown mt10">
+            <ng-multiselect-dropdown [placeholder]="'Select Location'" [settings]="dropdownSettings"
+              [data]="dropdownList" [(ngModel)]="location" id="location">
+            </ng-multiselect-dropdown>
           </div>
-          <div class="col-md-4">
-            <label for="dates">Dates</label><br>
-            <mat-form-field [formGroup]="dateRange">
-              <mat-label>Enter Booking Period</mat-label>
-              <mat-date-range-input [rangePicker]="picker" [min]="minDate">
-                <input matStartDate placeholder="From Date" formControlName="start" required>
-                <input matEndDate placeholder="To Date" formControlName="end" required>
-              </mat-date-range-input>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <label for="dates">Dates</label><br>
+          <mat-form-field [formGroup]="dateRange">
+            <mat-label>Enter Booking Period</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+              <input matStartDate placeholder="From Date" formControlName="start" required>
+              <input matEndDate placeholder="To Date" formControlName="end" required>
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <label for="price">Price Range</label>
+          <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+        </div>
+        <div class="col-md-1">
+          <span class="probootstrap-cta-button-wrap"><a class="btn btn-primary" (click)="search()">Search</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="probootstrap-section">
+  <div class="container">
+    <div class="row mb30">
+      <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
+        <h2>Explore our Services</h2>
+        <p class="lead"></p>
+        <p><img src="../assets/img/curve.svg" class="svg"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="service left-icon probootstrap-animate">
+          <div class="icon">
+            <img src="../assets/img/office-building.png" class="svg">
           </div>
-          <div class="col-md-3">
-            <label for="price">Price Range</label>
-            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+          <div class="text">
+            <h3>Excellent Hotel Rooms</h3>
+            <p>Spacious, Luxurious and Affordable rooms offering a pleasant stay</p>
           </div>
-          <div class="col-md-1">
-            <span class="probootstrap-cta-button-wrap"><a class="btn btn-primary" (click)="search()">Search</a></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service left-icon probootstrap-animate">
+          <div class="icon">
+            <img src="../assets/img/dumbbell.png" class="svg">
+          </div>
+          <div class="text">
+            <h3>Fitness</h3>
+            <p>Want to hit the gym? We have a fully equipped fitness center</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service left-icon probootstrap-animate">
+          <div class="icon">
+            <img src="../assets/img/swimming-pool.png" class="svg">
+          </div>
+          <div class="text">
+            <h3>Swimming pool and Jacuzzi</h3>
+            <p>Think less, Swim more</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service left-icon probootstrap-animate">
+          <div class="icon">
+            <img src="../assets/img/breakfast.png" class="svg">
+          </div>
+          <div class="text">
+            <h3>Daily Continental Breakfast</h3>
+            <p>Coz who doesn't love a Continental Breakfast?</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service left-icon probootstrap-animate">
+          <div class="icon">
+            <img src="../assets/img/parking.png" class="svg">
+          </div>
+          <div class="text">
+            <h3>Daily Parking</h3>
+            <p>Don't spend time looking for parking spaces, we have enough for everybody</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service left-icon probootstrap-animate">
+          <div class="icon">
+            <img src="../assets/img/meals.png" class="svg">
+          </div>
+          <div class="text">
+            <h3>Add all meals</h3>
+            <p>Spend the whole day with us, we will take care of all your meals</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="probootstrap-section">
-    <div class="container">
-      <div class="row mb30">
-        <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
-          <h2>Explore our Services</h2>
-          <p class="lead"></p>
-          <p><img src="../assets/img/curve.svg" class="svg"></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="service left-icon probootstrap-animate">
-            <div class="icon">
-              <img src="../assets/img/office-building.png" class="svg">
-            </div>
-            <div class="text">
-              <h3>Excellent Hotel Rooms</h3>
-              <p>Spacious, Luxurious and Affordable rooms offering a pleasant stay</p>
-            </div>  
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="service left-icon probootstrap-animate">
-            <div class="icon">
-              <img src="../assets/img/dumbbell.png" class="svg">
-            </div>
-            <div class="text">
-              <h3>Fitness</h3>
-              <p>Want to hit the gym? We have a fully equipped fitness center</p>
-            </div>  
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="service left-icon probootstrap-animate">
-            <div class="icon">
-              <img src="../assets/img/swimming-pool.png" class="svg">
-            </div>
-            <div class="text">
-              <h3>Swimming pool and Jacuzzi</h3>
-              <p>Think less, Swim more</p>
-            </div>  
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="service left-icon probootstrap-animate">
-            <div class="icon">
-              <img src="../assets/img/breakfast.png" class="svg">
-            </div>
-            <div class="text">
-              <h3>Daily Continental Breakfast</h3>
-              <p>Coz who doesn't love a Continental Breakfast?</p>
-            </div>  
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="service left-icon probootstrap-animate">
-            <div class="icon">
-              <img src="../assets/img/parking.png" class="svg">
-            </div>
-            <div class="text">
-              <h3>Daily Parking</h3>
-              <p>Don't spend time looking for parking spaces, we have enough for everybody</p>
-            </div>  
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="service left-icon probootstrap-animate">
-            <div class="icon">
-              <img src="../assets/img/meals.png" class="svg">
-            </div>
-            <div class="text">
-              <h3>Add all meals</h3>
-              <p>Spend the whole day with us, we will take care of all your meals</p>
-            </div>  
-          </div>
-        </div>
+  </div>
+</section>
+<section class="probootstrap-section probootstrap-section-dark">
+  <div class="container">
+    <div class="row mb30">
+      <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
+        <h2>Available Room Types</h2>
+        <p><img src="../assets/img/curve.svg" class="svg"></p>
       </div>
     </div>
-  </section>
-  <section class="probootstrap-section probootstrap-section-dark">
-    <div class="container">
-      <div class="row mb30">
-        <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
-          <h2>Available Room Types</h2>
-          <p><img src="../assets/img/curve.svg" class="svg"></p>
-        </div>
-      </div>
-      <div class="row probootstrap-gutter10">
-        <div class="col-md-4">
-          <div class="probootstrap-block-image-text">
-            <figure>
-              <a href="../assets/img/stud.jpeg" class="image-popup">
-                <img src="../assets/img/stud.jpeg" class="img-responsive">
-              </a>
-            </figure>
-            <div class="text">
-              <h3><a>Studios</a></h3>
-              <div class="post-meta">
-                <ul>
-                  <li><span class="review-rate">4.8</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i>Maximum 2 Guests</li>
-                </ul>
-              </div>
+    <div class="row probootstrap-gutter10">
+      <div class="col-md-4">
+        <div class="probootstrap-block-image-text">
+          <figure>
+            <a href="../assets/img/stud.jpeg" class="image-popup">
+              <img src="../assets/img/stud.jpeg" class="img-responsive">
+            </a>
+          </figure>
+          <div class="text">
+            <h3><a>Studios</a></h3>
+            <div class="post-meta">
+              <ul>
+                <li><span class="review-rate">4.8</span> <i class="icon-star"></i> 252 Reviews</li>
+                <li><i class="icon-user2"></i>Maximum 2 Guests</li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="probootstrap-block-image-text">
-            <figure>
-              <a href="../assets/img/suite.jpeg" class="image-popup">
+      </div>
+      <div class="col-md-4">
+        <div class="probootstrap-block-image-text">
+          <figure>
+            <a href="../assets/img/suite.jpeg" class="image-popup">
               <img src="../assets/img/suite.jpeg" class="img-responsive">
-              </a>
-            </figure>
-            <div class="text">
-              <h3><a>Suite</a></h3>
-              <div class="post-meta">
-                <ul>
-                  <li><span class="review-rate">4.9</span> <i class="icon-star"></i> 2521 Reviews</li>
-                  <li><i class="icon-user2"></i>Maximum 4 Guests</li>
-                </ul>
-              </div>
+            </a>
+          </figure>
+          <div class="text">
+            <h3><a>Suite</a></h3>
+            <div class="post-meta">
+              <ul>
+                <li><span class="review-rate">4.9</span> <i class="icon-star"></i> 2521 Reviews</li>
+                <li><i class="icon-user2"></i>Maximum 4 Guests</li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="probootstrap-block-image-text">
-            <figure>
-              <a href="../assets/img/luxury.jpeg" class="image-popup">
+      </div>
+      <div class="col-md-4">
+        <div class="probootstrap-block-image-text">
+          <figure>
+            <a href="../assets/img/luxury.jpeg" class="image-popup">
               <img src="../assets/img/luxury.jpeg" class="img-responsive">
-              </a>
-            </figure>
-            <div class="text">
-              <h3><a>Deluxe</a></h3>
-              <div class="post-meta">
-                <ul>
-                  <li><span class="review-rate">5.0</span> <i class="icon-star"></i> 1321 Reviews</li>
-                  <li><i class="icon-user2"></i>Maximum 6 Guests</li>
-                </ul>
-              </div>
+            </a>
+          </figure>
+          <div class="text">
+            <h3><a>Deluxe</a></h3>
+            <div class="post-meta">
+              <ul>
+                <li><span class="review-rate">5.0</span> <i class="icon-star"></i> 1321 Reviews</li>
+                <li><i class="icon-user2"></i>Maximum 6 Guests</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
