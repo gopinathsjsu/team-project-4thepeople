@@ -65,20 +65,25 @@ class BookRoom(APIView):
             request_end_day = request.POST.get('end_day')
             total_amount = request.POST.get('room_price')
 
-            booking_record = Booking(room_no=request_room_id,
-                                     user_id=request_user_id,
-                                     number_of_guests=int(request_number_of_guests),
-                                     booking_amenities=request_booking_amenities,
-                                     start_day=request_start_day,
-                                     end_day=request_end_day,
-                                     amount=total_amount
-                                     )
-            booking_record.save()
-
-            return Response({
-                "status": "success",
-                "message": "Booking Successfully Done"},
-                status=status.HTTP_200_OK)
+            if Booking.objects.filter(room_no=request_room_id).count()==0:
+                booking_record = Booking(room_no=request_room_id,
+                                         user_id=request_user_id,
+                                         number_of_guests=int(request_number_of_guests),
+                                         booking_amenities=request_booking_amenities,
+                                         start_day=request_start_day,
+                                         end_day=request_end_day,
+                                         amount=total_amount
+                                         )
+                booking_record.save()
+                return Response({
+                    "status": "error",
+                    "message": "room is already booked by other customer"},
+                    status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    "status": "error",
+                    "message": "room is already booked by other customer"},
+                    status=status.HTTP_200_OK)
         except Exception as e:
             return Response({
                 "status": "error",
