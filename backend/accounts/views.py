@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user, allowed_users, admin_only
-
+from accounts.models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -105,13 +105,17 @@ class UsersSigninAPI(APIView):
                             username=username,
                             password=password)
         if user is not None:
+            user_profile = UserProfile.objects.filter(user=user)[0]
             return Response({
                 "status": "success",
                 "data": {
                     "username": user.username,
                     "email": user.email,
                     "first_name": user.first_name,
-                    "last_name": user.last_name
+                    "last_name": user.last_name,
+                    "total_bookings": user_profile.total_bookings,
+                    "total_rewards": user_profile.total_rewards,
+                    "user_level": user_profile.user_level
                 },
                 "message": "AUTHORIZED"},
                 status=status.HTTP_200_OK)
