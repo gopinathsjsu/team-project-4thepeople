@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 # last name
 # check if user is already existed
 
+# number of bookings -- customer loyality
+# Rewards Points -- for booking purpose
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User

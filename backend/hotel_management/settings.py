@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -25,9 +25,8 @@ INSTALLED_APPS = [
     'rest_framework',  # rest framework
     'corsheaders',  # cors settings
     'crispy_forms',  # forms
-    # 'customers',  # app
+    'accounts',  # app
     'project_api',  # app
-    'login_module',  # app
     'booking',  # app
 ]
 
@@ -77,7 +76,7 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'hotel_management_system',
+            'NAME': 'hotel_management_system_final',
             'USER': 'postgres',
             'PASSWORD': 'MYlife@1994',
             'HOST': 'localhost',
