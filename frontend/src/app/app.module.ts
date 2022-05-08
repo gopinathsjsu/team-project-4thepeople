@@ -38,7 +38,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [],
