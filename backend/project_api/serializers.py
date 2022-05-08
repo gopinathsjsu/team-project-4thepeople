@@ -7,6 +7,7 @@ class RoomSerializer(serializers.ModelSerializer):
         model = Room
         fields = '_all_'
 
+
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
