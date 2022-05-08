@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   userDetails:any;
+  roomDetails:any;
   constructor() {
     this.userDetails = {}
   }
@@ -15,5 +16,13 @@ export class GlobalService {
 
   getUserDetails() {
     return this.userDetails;
+  }
+
+  getRoomDetails() {
+    return this.roomDetails;
+  }
+
+  setRoomDetails(room:any) {
+    this.roomDetails = room
   }
 }

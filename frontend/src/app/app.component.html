@@ -10,11 +10,10 @@
         <nav role="navigation" class="probootstrap-nav hidden-xs">
           <ul class="probootstrap-main-nav">
             <li class="active"><a href="index.html">Home</a></li>
-            <li><a style="cursor: pointer;" (click)="redirectRooms()">Our Rooms</a></li>
             <li class="hidden-xs probootstrap-logo-center"><a href="index.html"><img src="../assets/img/Paradise.png" class="hires" width="181" height="50"></a></li>
             <li><a style="cursor: pointer;" (click)="redirectToReserve()">Reservation</a></li>
             <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="!isLoggedIn">Login</a></li>
-            <li><a style="cursor: pointer;" *ngIf="isLoggedIn">Change/Cancel Reservation</a></li>
+            <li><a style="cursor: pointer;" *ngIf="isLoggedIn">View Bookings</a></li>
             <li><a style="cursor: pointer;" *ngIf="isLoggedIn">Rewards</a></li>
             <li><a style="cursor: pointer;" *ngIf="isLoggedIn" (click)="logout()">Logout</a></li>
           </ul>

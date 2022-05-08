@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from './global.service';
 import { NavigationStart, Event as NavigationEvent } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
