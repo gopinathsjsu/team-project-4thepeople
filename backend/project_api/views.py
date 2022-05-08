@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from booking.models import Room, Booking
+from accounts.models import UserProfile
 from .decorators import DynamicPricing, holidayPricing, weekendPricing, weekdayPricing
 import datetime
 import holidays
@@ -96,6 +97,7 @@ class SearchRoom(APIView):
     @staticmethod
     def post(request):
         try:
+            user_name = request.POST.get('username')
             location = request.POST.get('location')
             start_date = request.POST.get('start_date')
             end_date = request.POST.get('end_date')
@@ -108,6 +110,7 @@ class SearchRoom(APIView):
 
             if location:
                 all_room_records = all_room_records.filter(room_location=location)
+
 
             if start_date:
                 all_room_records = all_room_records.filter(start_date__lte=start_date)
@@ -131,6 +134,19 @@ class SearchRoom(APIView):
                 all_room_records = all_room_records.filter(price__gte=price_range_first, price__lte=price_range_end)
             elif price_range_first:
                 all_room_records = all_room_records.filter(price__gte=price_range_first)
+
+            if user_name:
+                user_detail = User.objects.filter(username=user_name)[0]
+                user_profile = UserProfile.objects.filter(user=user_detail)[0]
+                print(user_profile)
+                print(user_profile.user_level)
+
+                if user_profile.user_level == "Diamond":
+                    for room in all_room_records:
+                        room.price = room.price - 50
+                elif user_profile.user_level == "Gold":
+                    for room in all_room_records:
+                        room.price = room.price - 30
 
             for room in all_room_records:
                 room_records[room.room_no] = {
