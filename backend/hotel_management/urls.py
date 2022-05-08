@@ -17,14 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from login_module import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('accounts/', include('accounts.urls')),
+    # project api
     path('api/', include('project_api.urls')),
-    path('accounts/', include('login_module.urls')),
-    path('logout', views.logout, name='logout'),
 ]
 
 if settings.DEBUG:
