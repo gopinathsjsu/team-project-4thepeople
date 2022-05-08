@@ -2,12 +2,32 @@
   <section class="probootstrap-cta probootstrap-light">
     <div class="container">
       <div class="row">
-        <div class="row" style="margin-left: 20%;">
-          <div class="col-md-8">
-            <input type="text" class="form-control" id="" name="">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="location">Location</label><br>
+            <mat-form-field>
+              <mat-label>Enter Location</mat-label>
+              <input matInput [(ngModel)]="location">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <label for="dates">Dates</label><br>
+            <mat-form-field [formGroup]="dateRange">
+              <mat-label>Enter Booking Period</mat-label>
+              <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                <input matStartDate placeholder="From Date" formControlName="start" required>
+                <input matEndDate placeholder="To Date" formControlName="end" required>
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <label for="price">Price Range</label>
+            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
           </div>
           <div class="col-md-1">
-            <span class="probootstrap-cta-button-wrap"><a class="btn btn-primary">Search</a></span>
+            <span class="probootstrap-cta-button-wrap"><a class="btn btn-primary" (click)="search()">Search</a></span>
           </div>
         </div>
       </div>
@@ -97,7 +117,7 @@
     <div class="container">
       <div class="row mb30">
         <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
-          <h2>Best Rooms</h2>
+          <h2>Available Room Types</h2>
           <p><img src="../assets/img/curve.svg" class="svg"></p>
         </div>
       </div>
@@ -110,7 +130,7 @@
               </a>
             </figure>
             <div class="text">
-              <h3><a href="#">Studio</a></h3>
+              <h3><a>Studios</a></h3>
               <div class="post-meta">
                 <ul>
                   <li><span class="review-rate">4.8</span> <i class="icon-star"></i> 252 Reviews</li>
@@ -128,7 +148,7 @@
               </a>
             </figure>
             <div class="text">
-              <h3><a href="#">Suite</a></h3>
+              <h3><a>Suite</a></h3>
               <div class="post-meta">
                 <ul>
                   <li><span class="review-rate">4.9</span> <i class="icon-star"></i> 2521 Reviews</li>
@@ -146,7 +166,7 @@
               </a>
             </figure>
             <div class="text">
-              <h3><a href="#">Luxury</a></h3>
+              <h3><a>Deluxe</a></h3>
               <div class="post-meta">
                 <ul>
                   <li><span class="review-rate">5.0</span> <i class="icon-star"></i> 1321 Reviews</li>
