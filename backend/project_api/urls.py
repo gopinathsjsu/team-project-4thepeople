@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import CustomersAPI,RoomDetails, ContactViews
+from .views import RoomDetails, SearchRoom, BookRoom
 
 urlpatterns = [
-   path('customers/', CustomersAPI.as_view(), name="customer-api-view"),
-   path('roomdetails/<str:datestring>', RoomDetails.as_view(), name="room-api-view"),
-   path('contacts/', ContactViews.as_view(), name="contact-api-view"),
+   path('search/', SearchRoom.as_view(), name="search-api-view"),
+   path('booking/', BookRoom.as_view(), name="book-api-view"),
 ]
