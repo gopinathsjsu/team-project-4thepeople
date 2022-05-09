@@ -19,11 +19,14 @@ export class AppComponent {
       (event: NavigationEvent) => {
         if (event instanceof NavigationStart) {
           if ('/home' === event.url) {
-            if(this.globalService.getUserDetails().isLogged) {
+            if(localStorage.getItem('isLogged')=='true') {
               this.isLoggedIn = true
-              this.userDetails = this.globalService.getUserDetails()
-            } else if(localStorage.getItem('isLogged')=='true') {
-              this.isLoggedIn = true
+              this.userDetails = {
+                'username': localStorage.getItem('username'),
+                'first_name': localStorage.getItem('first_name'),
+                'last_name': localStorage.getItem('last_name'),
+                'email': localStorage.getItem('email')
+              }
             } else {
               this.isLoggedIn = false
             }
@@ -55,6 +58,14 @@ export class AppComponent {
     localStorage.setItem('last_name', '')
     localStorage.setItem('email', '')
     localStorage.setItem('isLogged', '')
+    this.router.navigate(["home"])
     location.reload()
+  }
+  bookings() {
+    this.router.navigate(["bookings"])
+  }
+
+  rewards() {
+    this.router.navigate(["rewards"])
   }
 }

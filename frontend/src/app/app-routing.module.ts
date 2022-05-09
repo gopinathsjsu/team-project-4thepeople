@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { RewardsComponent } from './rewards/rewards.component';
+import { BookingsComponent } from './bookings/bookings.component';
 
 const routes: Routes = [
   
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'rooms',component:RoomsComponent},
   {path:'reservation',component:ReservationComponent},
+  {path:'rewards', component:RewardsComponent},
+  {path:'bookings',component:BookingsComponent},
   {path:'**', redirectTo:'home'}
 ];
 

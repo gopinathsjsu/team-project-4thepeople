@@ -13,9 +13,32 @@
             <li class="hidden-xs probootstrap-logo-center"><a href="index.html"><img src="../assets/img/Paradise.png" class="hires" width="181" height="50"></a></li>
             <li><a style="cursor: pointer;" (click)="redirectToReserve()">Reservation</a></li>
             <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="!isLoggedIn">Login</a></li>
-            <li><a style="cursor: pointer;" *ngIf="isLoggedIn">View Bookings</a></li>
+            <!-- <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="isLoggedIn">Hello, {{userDetails.first_name}}</a></li> -->
+            <li><button [disabled]="!isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
+              <label *ngIf="isLoggedIn" style="color: rgba(0,0,0,.5);
+              font-size: 14px;">HELLO, {{userDetails.first_name | uppercase }}</label>
+
+            </button></li>
+            
+            <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <span (mouseleave)="menuTrigger.closeMenu()">
+              <button mat-menu-item (click)="bookings()">
+                <mat-icon>calendar_today</mat-icon>
+                <span>Your Bookings</span>
+          </button>
+          <button mat-menu-item (click)="rewards()">
+                <mat-icon>stars</mat-icon>
+                <span>Your Rewards</span>
+              </button>
+          <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+              </button>
+          </span>
+          </mat-menu>
+            <!-- <li><a style="cursor: pointer;" *ngIf="isLoggedIn">View Bookings</a></li>
             <li><a style="cursor: pointer;" *ngIf="isLoggedIn">Rewards</a></li>
-            <li><a style="cursor: pointer;" *ngIf="isLoggedIn" (click)="logout()">Logout</a></li>
+            <li><a style="cursor: pointer;" *ngIf="isLoggedIn" (click)="logout()">Logout</a></li> -->
           </ul>
           <div class="extra-text visible-xs">
             <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
