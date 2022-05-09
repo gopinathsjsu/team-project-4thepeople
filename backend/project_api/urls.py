@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RoomDetails, SearchRoom, BookRoom
+from .views import SearchRoom, BookRoom
 
 urlpatterns = [
    path('search/', SearchRoom.as_view(), name="search-api-view"),
