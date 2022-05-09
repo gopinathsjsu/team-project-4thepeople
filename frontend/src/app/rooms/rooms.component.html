@@ -1,126 +1,124 @@
-<section class="probootstrap-slider flexslider probootstrap-inner">
-    <ul class="slides">
-       <li style="background-image: url(../assets/img/slider_1.jpg);" class="overlay">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="probootstrap-slider-text text-center">
-                  <p><img src="../assets/img/curve_white.svg" class="seperator probootstrap-animate"></p>
-                  <h1 class="probootstrap-heading probootstrap-animate">Best Rooms</h1>
-                  <div class="probootstrap-animate probootstrap-sub-wrap">Select from a vast choices of rooms available</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-    </ul>
-  </section>
-  
+
   <section class="probootstrap-section">
     <div class="container">
       <div class="row">
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <h2 style="color: #903479">Deluxe</h2>
+        <div class="dropdown">
+          <ng-multiselect-dropdown
+            [placeholder]="'Select Location'"
+            [settings]="dropdownSettings"
+            [data]="dropdownList"
+            [(ngModel)]="selectedItems"
+            (ngModelChange)="changeData()" *ngIf="!noDropdown"
+           >
+          </ng-multiselect-dropdown>
+        </div>
+        <h3 *ngIf="noDropdown">Showing Results for: {{locationValue}}</h3>
+        <br><br><br><br>
+        <div *ngIf="noDropdown">
+          <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let deluxe of groupByTypeDeluxe">
           <div class="probootstrap-room">
-            <a href="#"><img src="../assets/img/img_4.jpg" alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
+            <a href="#"><img style="width: 400px; height: 300px;" [src]="deluxe.room_image" class="img-responsive"></a>
             <div class="text">
-              <h3>Classic Room</h3>
-              <p>Starting from <strong>$29.00/Night</strong></p>
+              <h3>{{deluxe.room_location}}</h3>
+              <p>Starting from <strong>${{deluxe.price}}/Night</strong></p>
               <div class="post-meta mb30">
                 <ul>
-                  <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i> 3 Guests</li>
+                  <li><i class="icon-user2"></i>Maximum 6 Guests</li>
                 </ul>
+                Amenities Included:
+                <ol>
+                  <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
+                </ol>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
+              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
+      </div>
+        <div *ngIf="!noDropdown">
+        <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let deluxe of groupByTypeDeluxeUpdated">
           <div class="probootstrap-room">
-            <a href="#"><img src="../assets/img/img_1.jpg" alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
+            <a href="#"><img style="width: 400px; height: 300px;" [src]="deluxe.room_image" class="img-responsive"></a>
             <div class="text">
-              <h3>Grand Deluxe Room</h3>
-              <p>Starting from <strong>$29.00/Night</strong></p>
+              <h3>{{deluxe.room_location}}</h3>
+              <p>Starting from <strong>${{deluxe.price}}/Night</strong></p>
               <div class="post-meta mb30">
                 <ul>
-                  <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i> 3 Guests</li>
+                  <li><i class="icon-user2"></i>Maximum 6 Guests</li>
+                </ul>
+                Amenities Included:
+                <ol>
+                  <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
+                </ol>
+              </div>
+              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="clearfix visible-sm-block"></div>
+      </div>
+      <div class="row">
+        <h2 style="color: #903479">Studios</h2>
+        <div class="dropdown">
+          <ng-multiselect-dropdown
+            [placeholder]="'Select Location'"
+            [settings]="dropdownSettings"
+            [data]="dropdownListStudios"
+            [(ngModel)]="selectedItemsStudios"
+            (ngModelChange)="changeData()"
+           >
+          </ng-multiselect-dropdown>
+        </div>
+        <h3 *ngIf="noDropdown">Showing Results for: {{locationValue}}</h3>
+        <br><br><br><br>
+        <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let deluxe of groupByTypeStudiosUpdated">
+          <div class="probootstrap-room">
+            <a href="#"><img style="width: 400px; height: 300px;" [src]="deluxe.room_image" class="img-responsive"></a>
+            <div class="text">
+              <h3>{{deluxe.room_location}}</h3>
+              <p>Starting from <strong>${{deluxe.price}}/Night</strong></p>
+              <div class="post-meta mb30">
+                <ul>
+                  <li><i class="icon-user2"></i>Maximum 2 Guests</li>
                 </ul>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
+              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
             </div>
           </div>
         </div>
         <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="probootstrap-room">
-            <a href="#"><img src="../assets/img/img_2.jpg" alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
-            <div class="text">
-              <h3>Ultra Superior Room</h3>
-              <p>Starting from <strong>$29.00/Night</strong></p>
-              <div class="post-meta mb30">
-                <ul>
-                  <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i> 3 Guests</li>
-                </ul>
-              </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
-            </div>
-          </div>
+      </div>
+      <div class="row">
+        <h2 style="color: #903479">Suite</h2>
+        <div class="dropdown">
+          <ng-multiselect-dropdown
+            [placeholder]="'Select Location'"
+            [settings]="dropdownSettings"
+            [data]="dropdownListSuite"
+            [(ngModel)]="selectedItemsSuite"
+            (ngModelChange)="changeData()"
+           >
+          </ng-multiselect-dropdown>
         </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <br><br><br><br>
+        <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let deluxe of groupByTypeSuiteUpdated">
           <div class="probootstrap-room">
-            <a href="#"><img src="../assets/img/img_5.jpg" alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
+            <a href="#"><img style="width: 400px; height: 300px;" [src]="deluxe.room_image" class="img-responsive"></a>
             <div class="text">
-              <h3>Grand Deluxe Room</h3>
-              <p>Starting from <strong>$29.00/Night</strong></p>
+              <h3>{{deluxe.room_location}}</h3>
+              <p>Starting from <strong>${{deluxe.price}}/Night</strong></p>
               <div class="post-meta mb30">
                 <ul>
-                  <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i> 3 Guests</li>
+                  <li><i class="icon-user2"></i>Maximum 4 Guests</li>
                 </ul>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
+              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
             </div>
           </div>
         </div>
         <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="probootstrap-room">
-            <a href="#"><img src="../assets/img/img_6.jpg" alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
-            <div class="text">
-              <h3>Ultra Superior Room</h3>
-              <p>Starting from <strong>$29.00/Night</strong></p>
-              <div class="post-meta mb30">
-                <ul>
-                  <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i> 3 Guests</li>
-                </ul>
-              </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="probootstrap-room">
-            <a href="#"><img src="../assets/img/img_7.jpg" alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
-            <div class="text">
-              <h3>Presidential Room</h3>
-              <p>Starting from <strong>$29.00/Night</strong></p>
-              <div class="post-meta mb30">
-                <ul>
-                  <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                  <li><i class="icon-user2"></i> 3 Guests</li>
-                </ul>
-              </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix visible-sm-block"></div>
-
       </div>
     </div>
   </section>

@@ -17,7 +17,6 @@
 ## Scrum Meeting
 We have weekly meetings on Fridays and each sprint starting from  Mondays and lasting for a week.
 
-Jira Link - https://cmpe202.atlassian.net/jira/software/projects/RD4/boards/2/backlog
 
 ## XP Core Values
 
@@ -29,13 +28,9 @@ Jira Link - https://cmpe202.atlassian.net/jira/software/projects/RD4/boards/2/ba
 3) Feedback: We constantly get feedback on the work that is being done as it provides a space for improvement by taking the positives of every feedback and improving the product accordingly.
 
 
-4) Respect: Every person assigned to a project contributes to a common goal which in our case is to come up with a reliable hotel management system with everybody having equal share. We have acknowledged everybody's inputs from which technology to be used till how do we approach a problem in order to finish the project smoothly. 
-
-
-5) Courage: We evaluate the results and get things done on time without any excuses. Everybody is aimed towards building an error free hotel management system.
-
 ## Architecture Diagram
-![Architecture](https://user-images.githubusercontent.com/26342510/163069887-5ad39fcf-b4e0-47e2-b93b-65c923d0335e.jpeg)
+![Architecture202-4](https://user-images.githubusercontent.com/60109870/167284899-67d00010-65d0-4f39-ad29-ea435cc2ddf3.jpg)
+
 
 ## Tech Stack used
 
@@ -55,15 +50,24 @@ The work is divided in a uniform manner so that everybody gets a chance to work 
 
 ## UI Wireframes
 
+Search Page:
+
+![search](https://user-images.githubusercontent.com/60109870/167287966-9f9e4f0f-8f64-4e26-9de9-406a50eb9bd2.png)
+
+
+
 Sign Up:
 
-<img width="1147" alt="Screen Shot 2022-04-12 at 4 24 48 PM" src="https://user-images.githubusercontent.com/26342510/163070392-153682b9-8435-4b4d-b8f5-2f8018036d27.png">
+![signup_page](https://user-images.githubusercontent.com/60109870/167287908-81bde73c-346c-4c31-8b47-c48c25bb3a89.png)
+
 
 Login:
 
-<img width="1147" alt="Screen Shot 2022-04-12 at 4 25 55 PM" src="https://user-images.githubusercontent.com/26342510/163070465-05068144-373e-421b-84a5-62625b5ad0db.png">
+![login_page](https://user-images.githubusercontent.com/60109870/167287934-e9d1e2d8-2489-40f9-ac23-07507da41621.png)
+
 
 Reservation Form:
+![hotel_booking_form](https://user-images.githubusercontent.com/60109870/167287948-17e8f074-a9fc-408c-a7e9-30fd5e2f3be3.png)
 
-<img width="1141" alt="Screen Shot 2022-04-12 at 4 26 59 PM" src="https://user-images.githubusercontent.com/26342510/163070564-794fee83-32f6-4d74-8dee-44c899ce7cf3.png">
+
 

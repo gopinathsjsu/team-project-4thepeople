@@ -1,43 +1,80 @@
 <section class="probootstrap-section">
-    <div class="container">
-<div class="row probootstrap-gutter40">
-    <div class="col-md-8">
-      <h2 class="mt0">Sign Up</h2>
-      <form action="#" method="post" class="probootstrap-form">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="fname">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname">
+  <div class="container">
+    <div class="row probootstrap-gutter40">
+      <div class="col-md-8">
+        <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" ngModel required
+                  #usernameInput="ngModel" [(ngModel)]="username" placeholder="Enter a unique username">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" ngModel
+                  #firstnameInput="ngModel" [(ngModel)]="first_name" placeholder="Enter First name" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" ngModel #lastnameInput="ngModel"
+                  [(ngModel)]="last_name" placeholder="Enter Last name" required>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email&nbsp;</label>
+                <span class="form-field">
+                  <i class="icon icon-mail"></i>
+                  <input type="email" class="form-control" id="email" name="email" ngModel #emailInput="ngModel"
+                    [(ngModel)]="email" placeholder="Enter Email" required>
+                </span>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="password1">Password (Min 8 Characters)</label>
+              <div class="form-field">
+                <input type="password" class="form-control" id="password1" name="password1" ngModel minlength="8"
+                  #password1Input="ngModel" [(ngModel)]="password1" placeholder="Enter Password" required>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="password2">Confirm Password</label>
+              <div class="form-field">
+                <input type="password" class="form-control" id="password2" name="password2" ngModel minlength="8"
+                  #password2Input="ngModel" [(ngModel)]="password2" placeholder="Enter Password" required
+                  (ngModelChange)="comparePasswords()">
+                <span *ngIf="!comparedPasswordBoolean" style="color: lightcoral;">Passwords does not match</span>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="lname">Last Name</label>
-              <input type="text" class="form-control" id="lname" name="lname">
-            </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-md" id="submit" name="submit" value="Sign Up"
+              [disabled]="!signupForm.valid || !comparedPasswordBoolean">
           </div>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <div class="form-field">
-            <i class="icon icon-mail"></i>
-            <input type="email" class="form-control" id="email" name="email">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="form-field">
-            <input type="password" class="form-control" id="password" name="password">
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary btn-lg" id="submit" name="submit" value="Sign Up">
-        </div>
-      </form>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="errors.length > 0">
+      <div *ngFor="let error of errors" class="alert alert-warning alert-dismissible" role="alert">
+        <span style="color: lightcoral;">{{error}}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="successMessage">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <span>Account Created Successfully, please <a style="color: rgb(144, 52, 121);cursor:pointer;" (click)="login()">Login</a> to continue</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
   </div>
-  </div>
-  </section>
-  
+</section>
