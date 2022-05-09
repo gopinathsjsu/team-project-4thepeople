@@ -10,7 +10,6 @@ class Command(BaseCommand):
 
     @staticmethod
     def _populate_data():
-        all_us_cities = list(records.keys())
         all_rooms = ["Studio", "Suite", "Deluxe"]
         room_prices = [200, 300, 400, 500, 600]
 
@@ -21,9 +20,8 @@ class Command(BaseCommand):
                      "All meals included"]
 
         room_range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-        days_advance = [2, 3, 4, 5, 6]
 
-        for room_name in range(101, 111):
+        for room_name in range(101, 202):
             city = random.choice(city_names)
             selected_room_type = random.choice(all_rooms)
             selected_room_price = random.choice(room_prices)
@@ -38,7 +36,6 @@ class Command(BaseCommand):
                                        room_amenities=amenities,
                                        is_available=True,
                                        price=selected_room_price,
-                                       no_of_days_advance=random.choice(days_advance),
                                        room_location=city,
                                        room_image=room_image_url
                                        )

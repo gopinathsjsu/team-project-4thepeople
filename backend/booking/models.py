@@ -18,9 +18,8 @@ class Room(models.Model):
     room_amenities = MultiSelectField(choices=Amenities_Choices, default="Daily Parking")
     is_available = models.BooleanField(default=True)
     price = models.FloatField(default=300.00)
-    no_of_days_advance = models.IntegerField()
     start_date = models.DateField(auto_now=True, auto_now_add=False)
-    room_location = models.CharField(max_length=50, default="sanjose")
+    room_location = models.CharField(max_length=50, default="San Jose")
     room_image = models.CharField(max_length=500)
 
     def __str__(self):
@@ -31,6 +30,8 @@ class Booking(models.Model):
     room_no = models.ForeignKey(Room, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     number_of_guests = models.IntegerField(default=1)
+    booking_location = models.CharField(max_length=50, default="San Jose")
+    booking_room_type = models.CharField(max_length=50, default="Studio")
     booking_amenities = MultiSelectField(choices=Amenities_Choices,
                                          default="Daily Parking")
     start_day = models.DateField(auto_now=False, auto_now_add=False)

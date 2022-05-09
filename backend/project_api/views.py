@@ -6,52 +6,11 @@ from accounts.models import UserProfile
 from .decorators import DynamicPricing, holidayPricing, weekendPricing, weekdayPricing
 import datetime
 import holidays
+import copy
 from django.contrib.auth.models import User
 
 
 class BookRoom(APIView):
-    # Search room type, location, date and price range
-    @staticmethod
-    def get(request):
-        # username is given
-        user_name = request.POST.get('username')
-        booking_records = Booking.objects.all()
-        api_response = {}
-
-        if user_name:
-            for book_record in booking_records:
-                if book_record.user_id.username == user_name:
-                    api_response[book_record.id] = {
-                        "room_no": book_record.room_no.room_no,
-                        "guests": book_record.number_of_guests,
-                        "amenities": book_record.booking_amenities,
-                        "start_day": book_record.start_day,
-                        "end_day": book_record.end_day,
-                        "total_amount": book_record.amount,
-                        "booked_date": book_record.booked_on
-                    }
-
-            return Response({
-                "status": "success",
-                "data": api_response},
-                status=status.HTTP_200_OK)
-        else:
-            for book_record in booking_records:
-                api_response[book_record.id] = {
-                    "room_no": book_record.room_no.room_no,
-                    "guests": book_record.number_of_guests,
-                    "amenities": book_record.booking_amenities,
-                    "start_day": book_record.start_day,
-                    "end_day": book_record.end_day,
-                    "total_amount": book_record.amount,
-                    "booked_date": book_record.booked_on
-                }
-
-            return Response({
-                "status": "success",
-                "data": api_response},
-                status=status.HTTP_200_OK)
-
     @staticmethod
     def post(request):
         try:
@@ -110,6 +69,55 @@ class BookRoom(APIView):
                 status=status.HTTP_400_BAD_REQUEST)
 
 
+class BookingDetails(APIView):
+    @staticmethod
+    def post(request):
+        try:
+            # username is given
+            user_name = request.POST.get('username')
+            booking_records = Booking.objects.all()
+            api_response = {}
+
+            if user_name:
+                for book_record in booking_records:
+                    if book_record.user_id.username == user_name:
+                        api_response[book_record.id] = {
+                            "room_no": book_record.room_no.room_no,
+                            "guests": book_record.number_of_guests,
+                            "amenities": book_record.booking_amenities,
+                            "start_day": book_record.start_day,
+                            "end_day": book_record.end_day,
+                            "total_amount": book_record.amount,
+                            "booked_date": book_record.booked_on
+                        }
+
+                return Response({
+                    "status": "success",
+                    "data": api_response},
+                    status=status.HTTP_200_OK)
+            else:
+                for book_record in booking_records:
+                    api_response[book_record.id] = {
+                        "room_no": book_record.room_no.room_no,
+                        "guests": book_record.number_of_guests,
+                        "amenities": book_record.booking_amenities,
+                        "start_day": book_record.start_day,
+                        "end_day": book_record.end_day,
+                        "total_amount": book_record.amount,
+                        "booked_date": book_record.booked_on
+                    }
+
+                return Response({
+                    "status": "success",
+                    "data": api_response},
+                    status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                "status": "error",
+                "data": str(e)},
+                status=status.HTTP_400_BAD_REQUEST)
+
+
 class SearchRoom(APIView):
     @staticmethod
     def post(request):
@@ -122,7 +130,10 @@ class SearchRoom(APIView):
             price_range_end = request.POST.get('price_end')
 
             room_records = {}
-            import copy
+            pricing_records = {
+                "new_price": {},
+                "old_price": {}
+            }
             all_room_records = copy.deepcopy(Room.objects.all())
             context = DynamicPricing()
 
@@ -166,14 +177,21 @@ class SearchRoom(APIView):
 
                 if start_date in us_holidays:
                     context.setStrategy(holidayPricing())
+                    pricing_records["DynamicPricing"] = "Holiday"
                 elif 0 <= day < 4:
                     context.setStrategy(weekdayPricing())
+                    pricing_records["DynamicPricing"] = "Weekday"
                 else:
                     context.setStrategy(weekendPricing())
+                    pricing_records["DynamicPricing"] = "Weekend"
 
                 dynamic_pricing_percentage = context.executeStrategy()
+
                 for room in all_room_records:
+                    pricing_records["old_price"][room.room_no] = room.price
+                    pricing_records["IncreasedBy"] = dynamic_pricing_percentage
                     room.price = room.price + (room.price * dynamic_pricing_percentage * 0.01)
+                    pricing_records["new_price"][room.room_no] = room.price
 
             if price_range_first and price_range_end:
                 all_room_records = all_room_records.filter(price__gte=price_range_first, price__lte=price_range_end)
@@ -186,9 +204,11 @@ class SearchRoom(APIView):
 
                 if user_profile.user_level == "Diamond":
                     for room in all_room_records:
+                        pricing_records["LoyalityDiscount"] = 50
                         room.price = room.price - 50
                 elif user_profile.user_level == "Gold":
                     for room in all_room_records:
+                        pricing_records["LoyalityDiscount"] = 30
                         room.price = room.price - 30
 
             for room in all_room_records:
@@ -204,6 +224,7 @@ class SearchRoom(APIView):
 
             return Response({
                 "status": "success",
+                "pricing_data": pricing_records,
                 "data": room_records},
                 status=status.HTTP_200_OK)
 
