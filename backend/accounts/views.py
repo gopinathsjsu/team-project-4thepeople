@@ -74,7 +74,9 @@ def userPage(request):
     return render(request, 'hotel/user_page.html', context)
 
 
-# API View here
+########################################################################################################################
+# API Views
+
 class UsersRegistrationAPI(APIView):
     @staticmethod
     def post(request):
@@ -128,7 +130,7 @@ class UsersSigninAPI(APIView):
 
 class UsersProfileAPI(APIView):
     @staticmethod
-    def get(request):
+    def post(request):
         user_name = request.POST.get('username')
         if user_name:
             user_detail = User.objects.filter(username=user_name)[0]
@@ -151,8 +153,7 @@ class UsersProfileAPI(APIView):
 
 
 class ManageHotelAccountView(APIView):
-    permission_classes = (IsAuthenticated,)
-
+    # permission_classes = (IsAuthenticated,)
     @staticmethod
     def post(request, *args, **kwargs):
         try:

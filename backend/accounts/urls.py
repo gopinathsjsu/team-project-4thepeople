@@ -13,6 +13,8 @@ urlpatterns = [
     # authentication api
     path('api/register/', UsersRegistrationAPI.as_view(), name="customer_registration_api"),
     path('api/signin/', UsersSigninAPI.as_view(), name="customer_signin_api"),
+
+    # account api
     path('api/manage_account/', ManageHotelAccountView.as_view(), name="manage_account_api"),
     path('api/profile/', UsersProfileAPI.as_view(), name="profile_account_api"),
 
