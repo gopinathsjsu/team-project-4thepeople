@@ -24,6 +24,10 @@ class BookRoom(APIView):
             request_start_day = request.POST.get('start_day')
             request_end_day = request.POST.get('end_day')
             total_amount = request.POST.get('room_price')
+
+            requested_booking_location = request.POST.get('booking_location')
+            requested_room_type = request.POST.get('booking_room_type')
+
             booking_flag = False
 
             if Booking.objects.count() != 0:
@@ -46,6 +50,8 @@ class BookRoom(APIView):
                 booking_record = Booking(room_no=request_room_id,
                                          user_id=request_user_id,
                                          number_of_guests=int(request_number_of_guests),
+                                         booking_location=requested_booking_location,
+                                         booking_room_type=requested_room_type,
                                          booking_amenities=request_booking_amenities,
                                          start_day=request_start_day,
                                          end_day=request_end_day,
@@ -83,6 +89,8 @@ class BookingDetails(APIView):
                     if book_record.user_id.username == user_name:
                         api_response[book_record.id] = {
                             "room_no": book_record.room_no.room_no,
+                            "room_location": book_record.booking_location,
+                            "room_type": book_record.booking_room_type,
                             "guests": book_record.number_of_guests,
                             "amenities": book_record.booking_amenities,
                             "start_day": book_record.start_day,
@@ -99,6 +107,8 @@ class BookingDetails(APIView):
                 for book_record in booking_records:
                     api_response[book_record.id] = {
                         "room_no": book_record.room_no.room_no,
+                        "room_location": book_record.booking_location,
+                        "room_type": book_record.booking_room_type,
                         "guests": book_record.number_of_guests,
                         "amenities": book_record.booking_amenities,
                         "start_day": book_record.start_day,
