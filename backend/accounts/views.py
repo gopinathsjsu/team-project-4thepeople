@@ -126,6 +126,30 @@ class UsersSigninAPI(APIView):
                 status=status.HTTP_200_OK)
 
 
+class UsersProfileAPI(APIView):
+    @staticmethod
+    def get(request):
+        user_name = request.POST.get('username')
+        if user_name:
+            user_detail = User.objects.filter(username=user_name)[0]
+            user_profile = UserProfile.objects.filter(user=user_detail)[0]
+            user_record = {
+                "username": user_profile.user.username,
+                "total_bookings": user_profile.total_bookings,
+                "total_reward_points": user_profile.total_rewards,
+                "level": user_profile.user_level
+            }
+            return Response({
+                "status": "success",
+                "data": user_record},
+                status=status.HTTP_200_OK)
+        else:
+            return Response({
+                "status": "error",
+                "message": "username is required"},
+                status=status.HTTP_400_BAD_REQUEST)
+
+
 class ManageHotelAccountView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -135,9 +159,7 @@ class ManageHotelAccountView(APIView):
             user_name = request.POST.get('username')
             reward_points_booking = request.POST.get('reward_points')
             user_detail = User.objects.filter(username=user_name)[0]
-            print(user_detail)
             user_profile = UserProfile.objects.filter(user=user_detail)[0]
-            print(user_profile)
             user_profile.total_bookings += 1
             user_profile.total_rewards += int(reward_points_booking)
 
@@ -145,17 +167,15 @@ class ManageHotelAccountView(APIView):
                 user_profile.user_level = "Gold"
             elif user_profile.total_bookings > 10:
                 user_profile.user_level = "Diamond"
+
             user_profile.save()
+
             return Response({
                 "status": "success",
-                "message": "Details Added Successfully"},
+                "message": "Account Details Added Successfully"},
                 status=status.HTTP_200_OK)
         except Exception as e:
             return Response({
                 "status": "error",
                 "message": str(e)},
                 status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
