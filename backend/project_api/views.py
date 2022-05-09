@@ -12,6 +12,90 @@ from django.contrib.auth.models import User
 
 class BookRoom(APIView):
     @staticmethod
+    def put(request):
+        try:
+            user_name = request.POST.get('username')
+            request_room_no = request.POST.get('room_no')
+            request_user_id = User.objects.get(username=user_name)
+
+            # booking update details
+            request_number_of_guests = request.POST.get('number_of_guests')
+            request_booking_amenities = request.POST.get('booking_amenities')
+            request_start_day = request.POST.get('start_day')
+            request_end_day = request.POST.get('end_day')
+            request_price = request.POST.get('room_price')
+
+            if Booking.objects.count() != 0:
+                # filtering results
+                room_record = Room.objects.filter(room_no=request_room_no)
+                booking_record = Booking.objects.filter(user_id=request_user_id).filter(room_no=room_record[0])
+
+                if booking_record:
+                    for record in booking_record:
+                        record.number_of_guests = request_number_of_guests
+                        record.booking_amenities = request_booking_amenities
+                        record.amount = request_price
+                        record.start_day = request_start_day
+                        record.end_day = request_end_day
+                        record.save()
+
+                    return Response({
+                        "status": "success",
+                        "message": "Booking Successfully Updated"},
+                        status=status.HTTP_200_OK)
+                else:
+                    return Response({
+                        "status": "error",
+                        "message": "No Booking Details Found"},
+                        status=status.HTTP_200_OK)
+
+            return Response({
+                "status": "error",
+                "message": "No Booking Details Found"},
+                status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({
+                "status": "error",
+                "message": str(e)},
+                status=status.HTTP_400_BAD_REQUEST)
+
+    @staticmethod
+    def delete(request):
+        try:
+            user_name = request.POST.get('username')
+            request_room_no = request.POST.get('room_no')
+            request_user_id = User.objects.get(username=user_name)
+
+            if Booking.objects.count() != 0:
+                # filtering results
+                room_record = Room.objects.filter(room_no=request_room_no)
+                booking_record = Booking.objects.filter(user_id=request_user_id).filter(room_no=room_record[0])
+
+                if booking_record:
+                    booking_record.delete()
+                    return Response({
+                        "status": "success",
+                        "message": "Booking Successfully Deleted"},
+                        status=status.HTTP_200_OK)
+                else:
+                    return Response({
+                        "status": "error",
+                        "message": "No Booking Details Found"},
+                        status=status.HTTP_200_OK)
+
+            return Response({
+                "status": "error",
+                "message": "No Booking Details Found"},
+                status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({
+                "status": "error",
+                "message": str(e)},
+                status=status.HTTP_400_BAD_REQUEST)
+
+    @staticmethod
     def post(request):
         try:
             request_room_no = request.POST.get('room_no')
@@ -24,6 +108,10 @@ class BookRoom(APIView):
             request_start_day = request.POST.get('start_day')
             request_end_day = request.POST.get('end_day')
             total_amount = request.POST.get('room_price')
+
+            requested_booking_location = request.POST.get('booking_location')
+            requested_room_type = request.POST.get('booking_room_type')
+
             booking_flag = False
 
             if Booking.objects.count() != 0:
@@ -46,6 +134,8 @@ class BookRoom(APIView):
                 booking_record = Booking(room_no=request_room_id,
                                          user_id=request_user_id,
                                          number_of_guests=int(request_number_of_guests),
+                                         booking_location=requested_booking_location,
+                                         booking_room_type=requested_room_type,
                                          booking_amenities=request_booking_amenities,
                                          start_day=request_start_day,
                                          end_day=request_end_day,
@@ -83,6 +173,8 @@ class BookingDetails(APIView):
                     if book_record.user_id.username == user_name:
                         api_response[book_record.id] = {
                             "room_no": book_record.room_no.room_no,
+                            "room_location": book_record.booking_location,
+                            "room_type": book_record.booking_room_type,
                             "guests": book_record.number_of_guests,
                             "amenities": book_record.booking_amenities,
                             "start_day": book_record.start_day,
@@ -99,6 +191,8 @@ class BookingDetails(APIView):
                 for book_record in booking_records:
                     api_response[book_record.id] = {
                         "room_no": book_record.room_no.room_no,
+                        "room_location": book_record.booking_location,
+                        "room_type": book_record.booking_room_type,
                         "guests": book_record.number_of_guests,
                         "amenities": book_record.booking_amenities,
                         "start_day": book_record.start_day,
