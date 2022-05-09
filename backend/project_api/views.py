@@ -20,7 +20,7 @@ class BookRoom(APIView):
 
         if user_name:
             for book_record in booking_records:
-                if book_record.user_id == user_name:
+                if book_record.user_id.username == user_name:
                     api_response[book_record.id] = {
                         "room_no": book_record.room_no.room_no,
                         "guests": book_record.number_of_guests,
@@ -56,8 +56,6 @@ class BookRoom(APIView):
     def post(request):
         try:
             request_room_no = request.POST.get('room_no')
-            request_room_id = Room.objects.get(room_no=request_room_no)
-
             user_name = request.POST.get('username')
             request_user_id = User.objects.get(username=user_name)
 
@@ -67,22 +65,25 @@ class BookRoom(APIView):
             request_start_day = request.POST.get('start_day')
             request_end_day = request.POST.get('end_day')
             total_amount = request.POST.get('room_price')
-
-            # filtering results
-            room_record = Room.objects.filter(room_no=request_room_no)
-            booking_record = Booking.objects.filter(room_no=room_record[0])
             booking_flag = False
-            for book_record in booking_record:
-                requested_start_date = datetime.datetime.strptime(request_start_day, '%Y-%m-%d')
-                requested_end_date = datetime.datetime.strptime(request_end_day, '%Y-%m-%d')
 
-                if book_record.start_day <= requested_start_date.date() <= book_record.end_day:
-                    booking_flag = True
+            if Booking.objects.count() != 0:
+                # filtering results
+                room_record = Room.objects.filter(room_no=request_room_no)
+                booking_record = Booking.objects.filter(room_no=room_record[0])
 
-                if book_record.start_day <= requested_end_date.date() <= book_record.end_day:
-                    booking_flag = True
+                for book_record in booking_record:
+                    requested_start_date = datetime.datetime.strptime(request_start_day, '%Y-%m-%d')
+                    requested_end_date = datetime.datetime.strptime(request_end_day, '%Y-%m-%d')
+
+                    if book_record.start_day <= requested_start_date.date() <= book_record.end_day:
+                        booking_flag = True
+
+                    if book_record.start_day <= requested_end_date.date() <= book_record.end_day:
+                        booking_flag = True
 
             if not booking_flag:
+                request_room_id = Room.objects.get(room_no=request_room_no)
                 booking_record = Booking(room_no=request_room_id,
                                          user_id=request_user_id,
                                          number_of_guests=int(request_number_of_guests),
@@ -92,6 +93,7 @@ class BookRoom(APIView):
                                          amount=total_amount
                                          )
                 booking_record.save()
+
                 return Response({
                     "status": "success",
                     "message": "Booking Successfully Done"},
@@ -120,14 +122,43 @@ class SearchRoom(APIView):
             price_range_end = request.POST.get('price_end')
 
             room_records = {}
-            all_room_records = Room.objects.all()
+            import copy
+            all_room_records = copy.deepcopy(Room.objects.all())
             context = DynamicPricing()
 
             if location:
                 all_room_records = all_room_records.filter(room_location=location)
 
             if start_date:
+                # get records from booking table and check room details
+                booked_rooms = Booking.objects.all()
+                booked_map = {}
+
+                for book_record in booked_rooms:
+                    if book_record.room_no.room_no in booked_map:
+                        booked_map[book_record.room_no.room_no].append({
+                            "start_day": book_record.start_day,
+                            "end_day": book_record.end_day
+                        })
+                    else:
+                        booked_map[book_record.room_no.room_no] = [{
+                            "start_day": book_record.start_day,
+                            "end_day": book_record.end_day
+                        }]
+
                 all_room_records = all_room_records.filter(start_date__lte=start_date)
+
+                remove_records = []
+                for room_record in all_room_records:
+                    if str(room_record.room_no) in booked_map:
+                        all_records = booked_map[str(room_record.room_no)]
+                        requested_start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+
+                        for index in all_records:
+                            if index["start_day"] <= requested_start_date.date() <= index["end_day"]:
+                                remove_records.append(str(room_record.room_no))
+
+                all_room_records = all_room_records.exclude(room_no__in=remove_records)
 
                 date_time_obj = datetime.datetime.strptime(start_date, '%Y-%m-%d')
                 us_holidays = holidays.US()
