@@ -31,6 +31,10 @@ We have weekly meetings on Fridays and each sprint starting from  Mondays and la
 ## Architecture Diagram
 ![Architecture202-4](https://user-images.githubusercontent.com/60109870/167284899-67d00010-65d0-4f39-ad29-ea435cc2ddf3.jpg)
 
+## Class Diagram
+
+![visual](https://user-images.githubusercontent.com/60109870/167354665-541c016e-807a-403f-ad5d-f9f50c2a86a8.png)
+
 
 ## Tech Stack used
 
