@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user, admin_only
 from accounts.models import UserProfile
+from booking.models import Booking, Room
 from django.contrib.auth.models import User
 from .serializer import AccountSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -64,8 +65,60 @@ def logoutUser(request):
 @login_required(login_url='login')
 @admin_only
 def home(request):
-    context = {}
+    bookings_count = Booking.objects.count()
+    rooms_count = Room.objects.count()
+    upcoming_revenue = 0
+    package_types = {"Delux": 0, "Suite": 0, "Studio": 0}
+    for booking in Booking.objects.all():
+        if booking.booking_room_type in package_types:
+            package_types[booking.booking_room_type] += 1
+        else:
+            package_types[booking.booking_room_type] = 1
+
+        upcoming_revenue += int(booking.amount)
+
+    context = {"bookings_count": bookings_count,
+               "rooms_count": rooms_count,
+               "upcoming_revenue": upcoming_revenue,
+               "Studio": package_types["Studio"],
+               "StudioCount": int(package_types["Studio"] / rooms_count),
+               "Suite": package_types["Suite"],
+               "SuiteCount": int(package_types["Suite"] / rooms_count),
+               "Delux": package_types["Delux"],
+               "DeluxCount": int(package_types["Delux"] / rooms_count),
+               }
     return render(request, 'hotel/dashboard.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def bookings_list(request):
+    bookings = Booking.objects.all()
+    context = {
+        'bookings': bookings,
+    }
+    return render(request, 'hotel/booking_list.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def create_booking(request):
+    context = {}
+    return render(request, 'hotel/booking_create.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def edit_booking(request, pk):
+    context = {}
+    return render(request, 'hotel/booking_edit.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def delete_booking(request, pk):
+    context = {}
+    return render(request, 'hotel/booking_delete.html', context)
 
 
 @login_required(login_url='login')
