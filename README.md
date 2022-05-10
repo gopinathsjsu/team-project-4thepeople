@@ -17,6 +17,13 @@
 ## Scrum Meeting
 We have weekly meetings on Fridays and each sprint starting from  Mondays and lasting for a week.
 
+## Weekly Scrum Task Board and Burndown Chart
+[Weekly.Scrum.Task.Board.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8660142/Weekly.Scrum.Task.Board.xlsx)
+
+
+## Sprint Journal
+[SPRINT_JOURNAL.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8660236/SPRINT_JOURNAL.xlsx)
+
 
 ## XP Core Values
 
@@ -55,10 +62,6 @@ The work is divided in a uniform manner so that everybody gets a chance to work 
 2) Swathi Anandram - Backend and Frontend
 3) Shreya Nimbhorkar - Backend and Frontend
 4) Harika Nalam - Backend and Frontend
-
-## Weekly Scrum Task Board and Burndown Chart
-[Weekly.Scrum.Task.Board.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8660142/Weekly.Scrum.Task.Board.xlsx)
-
 
 
 ## UI Wireframes
