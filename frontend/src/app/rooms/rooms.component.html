@@ -1,6 +1,6 @@
 
   <section class="probootstrap-section">
-    <div class="container">
+    <div class="container" *ngIf="!nodetails">
       <div class="row">
         <h2 style="color: #903479">Deluxe</h2>
         <div class="dropdown">
@@ -54,7 +54,7 @@
                 </ol>
               </div>
               <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
-              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
+              <p *ngIf="increase>0"><mat-icon style="color: rgb(144, 52, 121);">arrow_upward</mat-icon>Price Increase By <span style="color: rgb(144, 52, 121);">{{increase}}%</span> due to <span style="color: rgb(144, 52, 121);">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
                 </ol>
               </div>
               <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
-              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
+              <p *ngIf="increase>0"><mat-icon style="color: rgb(144, 52, 121);">arrow_upward</mat-icon>Price Increase By <span style="color: rgb(144, 52, 121);">{{increase}}%</span> due to <span style="color: rgb(144, 52, 121);">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@
                 </ol>
               </div>
               <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
-              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
+              <p *ngIf="increase>0"><mat-icon style="color: rgb(144, 52, 121);">arrow_upward</mat-icon>Price Increase By <span style="color: rgb(144, 52, 121);">{{increase}}%</span> due to <span style="color: rgb(144, 52, 121);">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@
                 </ol>
               </div>
               <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
-              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
+              <p *ngIf="increase>0"><mat-icon style="color: rgb(144, 52, 121);">arrow_upward</mat-icon>Price Increase By <span style="color: rgb(144, 52, 121);">{{increase}}%</span> due to <span style="color: rgb(144, 52, 121);">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -176,12 +176,16 @@
               </ol>
             </div>
             <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
-            <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
+            <p *ngIf="increase>0"><mat-icon style="color: rgb(144, 52, 121);">arrow_upward</mat-icon>Price Increase By <span style="color: rgb(144, 52, 121);">{{increase}}%</span> due to <span style="color: rgb(144, 52, 121);">{{whyincrease}}</span>.</p>
           </div>
         </div>
       </div>
       </div>
         <div class="clearfix visible-sm-block"></div>
       </div>
+      
+    </div>
+    <div class="container" style="text-align: center;font-size:20px;" *ngIf="nodetails">
+      <span>No Data matches the search criteria</span>
     </div>
   </section>

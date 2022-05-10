@@ -101,6 +101,7 @@ export class HomeComponent implements OnInit {
         "price_end": this.maxValue,
         "price_start": this.minValue
       }
+      localStorage.setItem('searchForm', JSON.stringify(formData))
       let empty: any;
       this.globalService.setRoomDetails(empty)
       localStorage.setItem('location', this.location)

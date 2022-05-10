@@ -39,6 +39,7 @@ export class RoomsComponent implements OnInit {
   };
   increase:any;
   whyincrease:any;
+  nodetails: boolean = false;
   
   constructor(private globalService: GlobalService, private router: Router, private zone:NgZone) {
   }
@@ -47,27 +48,32 @@ export class RoomsComponent implements OnInit {
     this.roomDetails = localStorage.getItem("response");
     this.roomDetails = JSON.parse(this.roomDetails)
     this.roomDetails = Object.values(this.roomDetails)
-    this.increase = localStorage.getItem("increaseBy")
-    this.increase = JSON.parse(this.increase)
-    if(this.increase > 0) {
-      this.whyincrease = localStorage.getItem('whyincrease')
-      _.forEach(this.roomDetails, val => {
-        let percent = this.increase / 100 * val.price
-        val.price = val.price + percent
-      })
-    }
-    this.groupByTypeDeluxe = _.filter(this.roomDetails, {'room_type': 'Deluxe'})
-    this.dropdownList = [...new Set(this.groupByTypeDeluxe.map((item: { room_location: any; }) => item.room_location))]
-    this.groupByTypeStudios = _.filter(this.roomDetails, {'room_type': 'Studio'})
-    this.dropdownListStudios = [...new Set(this.groupByTypeStudios.map((item: { room_location: any; }) => item.room_location))]
-    this.groupByTypeSuite = _.filter(this.roomDetails, {'room_type': 'Suite'})
-    this.dropdownListSuite = [...new Set(this.groupByTypeSuite.map((item: { room_location: any; }) => item.room_location))]
-    this.locationValue = localStorage.getItem('location')
-    if(this.locationValue) {
-      this.groupByTypeDeluxeUpdated = [...this.groupByTypeDeluxe]
-      this.groupByTypeStudiosUpdated = this.groupByTypeStudios
-      this.groupByTypeSuiteUpdated = this.groupByTypeSuite
-      this.noDropdown = true
+
+    if(this.roomDetails.length > 0) {
+      this.increase = localStorage.getItem("increaseBy")
+      this.increase = JSON.parse(this.increase)
+      if(this.increase > 0) {
+        this.whyincrease = localStorage.getItem('whyincrease')
+        _.forEach(this.roomDetails, val => {
+          let percent = this.increase / 100 * val.price
+          val.price = val.price + percent
+        })
+      }
+      this.groupByTypeDeluxe = _.filter(this.roomDetails, {'room_type': 'Deluxe'})
+      this.dropdownList = [...new Set(this.groupByTypeDeluxe.map((item: { room_location: any; }) => item.room_location))]
+      this.groupByTypeStudios = _.filter(this.roomDetails, {'room_type': 'Studio'})
+      this.dropdownListStudios = [...new Set(this.groupByTypeStudios.map((item: { room_location: any; }) => item.room_location))]
+      this.groupByTypeSuite = _.filter(this.roomDetails, {'room_type': 'Suite'})
+      this.dropdownListSuite = [...new Set(this.groupByTypeSuite.map((item: { room_location: any; }) => item.room_location))]
+      this.locationValue = localStorage.getItem('location')
+      if(this.locationValue) {
+        this.groupByTypeDeluxeUpdated = this.groupByTypeDeluxe
+        this.groupByTypeStudiosUpdated = this.groupByTypeStudios
+        this.groupByTypeSuiteUpdated = this.groupByTypeSuite
+        this.noDropdown = true
+      }
+    } else {
+      this.nodetails = true
     }
   }
   changeData() {
@@ -78,8 +84,11 @@ export class RoomsComponent implements OnInit {
 
 
   reserve(room:any) {
-    localStorage.setItem('room_details', JSON.stringify(room))
-    this.router.navigate(["reservation"])
+    if(localStorage.getItem('isLogged')=='true') {
+      localStorage.setItem('room_details', JSON.stringify(room))
+      this.router.navigate(["reservation"])
+    } else {
+      this.router.navigate(["login"])
+    }
   }
-  
 }

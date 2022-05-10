@@ -51,8 +51,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="roomno">Number of Rooms</label>
-                <input [ngModelOptions]="{standalone: true}" readonly type="number" min="1" max="10"
-                  class="form-control" #roomssInput="ngModel" name="rooms" id="guests" #roomsInput ngModel
+                <input [ngModelOptions]="{standalone: true}" type="number" min="1" [max]="totalrooms"
+                  class="form-control" readonly #roomssInput="ngModel" name="rooms" id="guests" #roomsInput ngModel
                   [(ngModel)]="rooms" />
               </div>
             </div>
@@ -107,7 +107,8 @@
             </div>
             <div class="modal-body" style="text-align:center">
               You have successfully booked your room on {{room_details.start_date}} for {{number_of_guests}}
-              person(s) at {{room_details.room_location}}.<br>Looking forward to serve you.<br>We have added 50 reward points.
+              person(s) at {{room_details.room_location}}.<br>Looking forward to serve you.<br>We have added 50 reward points.<br>
+              <span><a style="cursor: pointer; color: rgb(144, 52, 121)" (click)="redirectToHome()">Click here</a> to go back to the home page book another room</span>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-light" (click)="closeModal()" data-bs-dismiss="modal">OK</button>

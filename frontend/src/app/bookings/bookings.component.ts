@@ -14,6 +14,8 @@ export class BookingsComponent implements OnInit {
   username: any;
   first_name:any;
   last_name:any;
+  deletion:boolean=false;
+  deletedRoom:any;
   constructor(private router:Router, private bookingService: BookingsService) { }
 
   ngOnInit(): void {
@@ -25,6 +27,11 @@ export class BookingsComponent implements OnInit {
 
   public displayedColumns: string[] = ['first_name', 'last_name', 'guests', 'room_no', 'room_type', 'start_day', 'end_day', 'room_location', 'total_amount', 'amenities', 'booked_date', 'update', 'delete'];
   public dataSource = new MatTableDataSource();
+
+  closeModal() {
+    this.deletion = false;
+    location.reload()
+  }
 
   public getAllOwners = () => {
     this.bookingService.getBookingsForUser(this.username)
@@ -47,8 +54,12 @@ export class BookingsComponent implements OnInit {
     localStorage.setItem('reservationDetails', JSON.stringify(this.dataSource.data))
     this.router.navigate(["reservation"])
   }
-  public redirectToDelete = (id: string) => {
-    
+  public redirectToDelete = (roomno: string) => {
+    this.bookingService.deleteBooking(this.username, roomno)
+    .subscribe(response=>{
+      this.deletion = true
+      this.deletedRoom = _.find(this.dataSource.data, {'room_no': roomno})
+    })
   }
 
 }

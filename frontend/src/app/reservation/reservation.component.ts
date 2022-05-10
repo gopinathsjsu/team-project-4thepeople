@@ -95,6 +95,8 @@ export class ReservationComponent implements OnInit {
   successmodification:boolean = false;
   modifiedAmount:any;
   modifiedAbs:any;
+  totalrooms:any;
+  matching_rooms:any;
 
   constructor(private router: Router, private reservationService: ReservationService, private homeService:SearchService) {
     this.minDate = new Date();
@@ -110,7 +112,10 @@ export class ReservationComponent implements OnInit {
     this.selectedItems = []
     if(localStorage.getItem('room_details')) {
       this.room_details = localStorage.getItem('room_details')
+      this.totalrooms = localStorage.getItem('roomcount')
       this.room_details = JSON.parse(this.room_details)
+      this.matching_rooms = localStorage.getItem('allRoomsMatch')
+      this.matching_rooms = JSON.parse(this.matching_rooms)
       this.room_price = this.room_details.price
       this.room_type = this.room_details.room_type
       this.room_number = this.room_details.room_no
@@ -134,7 +139,6 @@ export class ReservationComponent implements OnInit {
       this.room_details = localStorage.getItem('reservationDetails')
       this.room_details = JSON.parse(this.room_details)
       this.room_details = this.room_details[0]
-      // console.log(this.room_details)
       this.room_price = this.room_details.total_amount
       this.room_type = this.room_details.room_type
       if(this.room_type == 'Studio') {
@@ -306,7 +310,6 @@ export class ReservationComponent implements OnInit {
     var date1:any = new Date(sentDate);
     var diffDays:any = Math.floor((date1 - this.start_day) / (1000 * 60 * 60 * 24));
     this.number_of_days = diffDays
-    console.log(this.number_of_days)
     if(this.number_of_days <= 0) {
       this.number_of_days = 1
     } else {
@@ -318,5 +321,26 @@ export class ReservationComponent implements OnInit {
   closeModalModify() {
     this.successmodification = false
     this.router.navigate(["bookings"])
+  }
+
+  redirectToHome() {
+    this.router.navigate(["home"])
+  }
+
+  redirectToSearchResults() {
+    let searchRes:any = localStorage.getItem('searchForm')
+    searchRes = JSON.parse(searchRes)
+    this.homeService.searchServiceCall(searchRes)
+    .subscribe(response=>{
+      let resSTR = JSON.stringify(response);
+      let resJSON = JSON.parse(resSTR);
+      localStorage.setItem('response', JSON.stringify(resJSON.data));
+      localStorage.setItem('increaseBy', JSON.stringify(resJSON.pricing_data.IncreasedBy))
+      localStorage.setItem('whyincrease', JSON.stringify(resJSON.pricing_data.DynamicPricing))
+      let startDates = moment(this.start_day).format('YYYY-MM-DD')
+      localStorage.setItem('roomstartsearch', startDates)
+      this.router.navigate(["rooms"])
+})
+    this.router.navigate(["rooms"])
   }
 }

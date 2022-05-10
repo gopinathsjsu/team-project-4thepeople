@@ -23,6 +23,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { RewardsComponent } from './rewards/rewards.component';
 import { BookingsComponent } from './bookings/bookings.component';
+import { AuthGuard } from './auth-guard';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { BookingsComponent } from './bookings/bookings.component';
     MatTableModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
