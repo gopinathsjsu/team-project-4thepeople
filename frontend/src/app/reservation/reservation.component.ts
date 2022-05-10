@@ -277,9 +277,13 @@ export class ReservationComponent implements OnInit {
       } else {
         this.room_price = this.room_price * this.rooms * this.number_of_guests * this.number_of_days + this.amenities_cost
       }
-
     } else {
-      this.room_price = this.room_price * this.rooms * this.number_of_guests * this.number_of_days + this.amenities_cost
+      if (this.room_details.guests > this.number_of_guests) {
+        this.room_price = this.room_price * this.rooms * this.number_of_guests * this.number_of_days - this.amenities_cost
+        this.room_price = this.room_price / this.number_of_guests
+      } else {
+        this.room_price = this.room_price * this.rooms * this.number_of_guests * this.number_of_days + this.amenities_cost
+      }
     }
 
   }
