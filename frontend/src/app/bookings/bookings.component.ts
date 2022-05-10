@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { BookingsService } from './bookings.service';
+import * as _ from 'lodash'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bookings',
@@ -7,24 +11,41 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./bookings.component.css']
 })
 export class BookingsComponent implements OnInit {
-
-  constructor() { }
+  username: any;
+  first_name:any;
+  last_name:any;
+  constructor(private router:Router, private bookingService: BookingsService) { }
 
   ngOnInit(): void {
+    this.username = localStorage.getItem('username');
+    this.first_name = localStorage.getItem('first_name')
+    this.last_name = localStorage.getItem('last_name')
     this.getAllOwners()
   }
 
-  public displayedColumns = ['name', 'dateOfBirth', 'address', 'details', 'update', 'delete'];
+  public displayedColumns: string[] = ['first_name', 'last_name', 'guests', 'room_no', 'room_type', 'start_day', 'end_day', 'room_location', 'total_amount', 'amenities', 'booked_date', 'update', 'delete'];
   public dataSource = new MatTableDataSource();
 
   public getAllOwners = () => {
-    this.dataSource.data = ['Swathi', 'Anandram', 'Room 101', '2022-10-07', 'update', 'delete'];
+    this.bookingService.getBookingsForUser(this.username)
+    .subscribe(response => {
+      let resSTR = JSON.stringify(response);
+      let resJSON = JSON.parse(resSTR);
+      let values = _.values(resJSON.data)
+      _.forEach(values, val=> {
+        val.first_name = this.first_name
+        val.last_name = this.last_name
+        val.booked_date = moment(val.booked_date).format('YYYY-MM-DD');
+      })
+      this.dataSource.data = values
+    })
+    this.dataSource.data = [
+    ]
   }
-  public redirectToDetails = (id: string) => {
-    
-  }
-  public redirectToUpdate = (id: string) => {
-    
+  public redirectToUpdate = () => {
+    localStorage.removeItem('room_details')
+    localStorage.setItem('reservationDetails', JSON.stringify(this.dataSource.data))
+    this.router.navigate(["reservation"])
   }
   public redirectToDelete = (id: string) => {
     

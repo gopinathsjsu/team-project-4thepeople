@@ -7,52 +7,83 @@
         </div>
       </div>
       <div class="row">
-        <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>First Name</th>
-              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="first_name">
+              <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.first_name}} </mat-cell>
             </ng-container>
           
-            <ng-container matColumnDef="dateOfBirth">
-              <th mat-header-cell *matHeaderCellDef>Last Name</th>
-              <td mat-cell *matCellDef="let element"> {{element.dateOfBirth | date}} </td>
+            <ng-container matColumnDef="last_name">
+              <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.last_name}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="guests">
+              <mat-header-cell *matHeaderCellDef>Number of Guests</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.guests}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="room_no">
+              <mat-header-cell *matHeaderCellDef>Room Number</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.room_no}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="room_type">
+              <mat-header-cell *matHeaderCellDef>Room Type</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.room_type}} </mat-cell>
             </ng-container>
           
-            <ng-container matColumnDef="address">
-              <th mat-header-cell *matHeaderCellDef>Room Numbers</th>
-              <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+            <ng-container matColumnDef="start_day">
+              <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.start_day}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="end_day">
+              <mat-header-cell *matHeaderCellDef>End Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.end_day}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="room_location">
+              <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.room_location}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="total_amount">
+              <mat-header-cell *matHeaderCellDef>Total Amount</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.total_amount}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="amenities">
+              <mat-header-cell *matHeaderCellDef>Amenitites Included</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.amenities}} </mat-cell>
             </ng-container>
           
-            <ng-container matColumnDef="details">
-              <th mat-header-cell *matHeaderCellDef> Booking Date </th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">
-                    <mat-icon class="mat-18">reorder</mat-icon>
-                </button>
-              </td>
+            <ng-container matColumnDef="booked_date">
+              <mat-header-cell *matHeaderCellDef>Booking Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.booked_date}} </mat-cell>
             </ng-container>
           
             <ng-container matColumnDef="update">
-                <th mat-header-cell *matHeaderCellDef> Modify Reservation </th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+                <mat-header-cell *matHeaderCellDef> Modify Reservation </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button color="accent" (click)="redirectToUpdate()">
                       <mat-icon class="mat-18">system_update</mat-icon>
                   </button>
-                </td>
+                </mat-cell>
               </ng-container>
           
               <ng-container matColumnDef="delete">
-                  <th mat-header-cell *matHeaderCellDef> Cancel Reservation </th>
-                  <td mat-cell *matCellDef="let element">
+                  <mat-header-cell *matHeaderCellDef> Cancel Reservation </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
                     <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
                         <mat-icon class="mat-18">delete</mat-icon>
                     </button>
-                  </td>
+                  </mat-cell>
                 </ng-container>
           
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
       </div>
     </div>
   </section>

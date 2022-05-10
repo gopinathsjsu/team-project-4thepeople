@@ -18,7 +18,6 @@ export class AppComponent {
     let urlRoute = this.router.events.subscribe(
       (event: NavigationEvent) => {
         if (event instanceof NavigationStart) {
-          if ('/home' === event.url) {
             if(localStorage.getItem('isLogged')=='true') {
               this.isLoggedIn = true
               this.userDetails = {
@@ -30,7 +29,6 @@ export class AppComponent {
             } else {
               this.isLoggedIn = false
             }
-          }
         }
       })
   }
@@ -53,11 +51,7 @@ export class AppComponent {
   logout() {
     let userDetails = {}
     this.globalService.setUserDetails(userDetails)
-    localStorage.setItem('username', '')
-    localStorage.setItem('first_name', '')
-    localStorage.setItem('last_name', '')
-    localStorage.setItem('email', '')
-    localStorage.setItem('isLogged', '')
+    localStorage.clear()
     this.router.navigate(["home"])
     location.reload()
   }
@@ -67,5 +61,9 @@ export class AppComponent {
 
   rewards() {
     this.router.navigate(["rewards"])
+  }
+
+  redirectToHome() {
+    this.router.navigate(["home"])
   }
 }

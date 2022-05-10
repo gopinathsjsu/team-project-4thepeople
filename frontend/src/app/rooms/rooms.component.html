@@ -32,7 +32,7 @@
                   <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
                 </ol>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+              <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
             </div>
           </div>
         </div>
@@ -53,7 +53,8 @@
                   <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
                 </ol>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+              <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
+              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -91,7 +92,8 @@
                   <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
                 </ol>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+              <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
+              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -112,7 +114,8 @@
                   <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
                 </ol>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+              <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
+              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -150,7 +153,8 @@
                   <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
                 </ol>
               </div>
-              <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+              <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
+              <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
             </div>
           </div>
         </div>
@@ -171,7 +175,8 @@
                 <li *ngFor="let amen of deluxe.room_amenities">{{amen}}</li>
               </ol>
             </div>
-            <p><a href="#" class="btn btn-primary" role="button">Reserve now for ${{deluxe.price}}</a></p>
+            <p><a class="btn btn-primary" role="button" (click)="reserve(deluxe)">Reserve now for ${{deluxe.price}}</a></p>
+            <p *ngIf="increase>0"><mat-icon style="color: red;">arrow_upward</mat-icon>Price Increase By <span style="color: red;">{{increase}}%</span> due to <span style="color: red;">{{whyincrease}}</span>.</p>
           </div>
         </div>
       </div>

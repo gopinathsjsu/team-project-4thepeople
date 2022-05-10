@@ -3,59 +3,47 @@
     <div class="row probootstrap-gutter40">
       <div class="col-md-8">
         <h2 class="mt0">Reservation</h2>
-        <form action="#" method="post" class="probootstrap-form" #bookingForm="ngForm">
+        <form (submit)="onReservation(bookingForm)" class="probootstrap-form" #bookingForm="ngForm" *ngIf="!successbooking && !successmodification">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="first_name">First Name</label>
-                <input ngModel type="text" #fnameInput="ngModel" [(ngModel)]="first_name" class="form-control" id="first_name" name="first_name">
+                <input [ngModelOptions]="{standalone: true}" ngModel readonly type="text" #fnameInput="ngModel"
+                  [(ngModel)]="first_name" class="form-control" id="first_name" name="first_name">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="last_name">Last Name</label>
-                <input ngModel type="text" #lnameInput="ngModel" [(ngModel)]="last_name" class="form-control" id="last_name" name="last_name">
+                <input ngModel [ngModelOptions]="{standalone: true}" readonly type="text" #lnameInput="ngModel"
+                  [(ngModel)]="last_name" class="form-control" id="last_name" name="last_name">
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input ngModel type="email" #emailInput="ngModel" [(ngModel)]="email" class="form-control" id="email" name="email">
+            <input [ngModelOptions]="{standalone: true}" ngModel readonly type="email" #emailInput="ngModel"
+              [(ngModel)]="email" class="form-control" id="email" name="email">
           </div>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="roomtype">Room</label>
-                <!-- <div class="dropdown"> -->
-                  <ng-multiselect-dropdown
-                    [placeholder]="'Select Room Type'"
-                    [settings]="dropdownSettings"
-                    [data]="dropdownList"
-                    [(ngModel)]="selectedItems"
-                    (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)"
-                   >
-                  </ng-multiselect-dropdown>
-                <!-- </div> -->
+                <ng-multiselect-dropdown [placeholder]="'Select Room Type'" [settings]="dropdownSettingsRoom"
+                  [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                  (onSelectAll)="onSelectAll($event)" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                </ng-multiselect-dropdown>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-               <label for="amenities">Amenities</label>
-                <!-- <div class="dropdown"> -->
-                  <ng-multiselect-dropdown
-                    [placeholder]="'Select Amenities'"
-                    [settings]="dropdownSettings"
-                    [data]="dropdownList1"
-                    [(ngModel)]="selectedItems1"
-                    (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)"
-                    [ngModelOptions]="{standalone: true}"
-                    (onDeSelect)="onVendorDeSelect($event)"
-                    (onDeSelectAll)="onDeSelectAll($event)"
-                   >
-                  </ng-multiselect-dropdown>
-                <!-- </div> -->
+                <label for="amenities">Amenities</label>
+                <ng-multiselect-dropdown [placeholder]="'Select Amenities'" [settings]="dropdownSettings"
+                  [data]="dropdownList1" [(ngModel)]="selectedItems1" (onSelect)="onItemSelect($event)"
+                  (onSelectAll)="onSelectAll($event)" [ngModelOptions]="{standalone: true}"
+                  (onDeSelect)="onVendorDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                  [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
               </div>
             </div>
           </div>
@@ -63,13 +51,17 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="roomno">Number of Rooms</label>
-                <input type="number" min ="1" max="10" class="form-control" #roomssInput="ngModel" name="rooms" id="guests" #roomsInput ngModel [(ngModel)]="rooms" (input)="OnRoomSelect()"/>
+                <input [ngModelOptions]="{standalone: true}" readonly type="number" min="1" max="10"
+                  class="form-control" #roomssInput="ngModel" name="rooms" id="guests" #roomsInput ngModel
+                  [(ngModel)]="rooms" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="guests">Number of Guests &nbsp;</label>
-                <input type="number" min ="1" max="10" #guestsInput="ngModel" name="guests" class="form-control" id="guests" #guestInput ngModel [(ngModel)]="guestnumber" (input)="OnGuestSelect()"/>
+                <input [ngModelOptions]="{standalone: true}" type="number" min="1" [max]="guestscap" #guestsInput="ngModel"
+                  name="guests" class="form-control" id="guests" #guestInput ngModel [(ngModel)]="number_of_guests"
+                  (input)="OnGuestSelect()" />
               </div>
             </div>
           </div>
@@ -79,7 +71,8 @@
                 <label for="startdate">Start Date&nbsp;</label><br>
                 <mat-form-field appearance="fill">
                   <mat-label>Choose a date</mat-label>
-                  <input matInput [matDatepicker]="picker1" [min]="minDate">
+                  <input [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1" [min]="minDate"
+                    [(ngModel)]="start_day" (ngModelChange)="startDateChange()">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -90,30 +83,56 @@
                 <label for="enddate">End Date&nbsp;</label><br>
                 <mat-form-field appearance="fill">
                   <mat-label>Choose a date</mat-label>
-                  <input matInput [matDatepicker]="picker" [min]="minDate1">
+                  <input matInput [matDatepicker]="picker" [min]="minDate1" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="end_day" [max]="maxEnd" (ngModelChange)="calculateDiff(end_day)">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
           </div>
-          <!-- <div class="row">
-             <div class="col-md-6">
-               <div class="form-group">
-                 <label for="adults">Number of Guests &nbsp;</label>
-                  <input type="number" min ="1" max="10" class="num" [(ngModel)]="value" />
-                </div>
-              </div>
-            </div> -->
-            <div class="form-group">
-              <label for="totalcost">Total Cost</label>
-              <input type="text" class="form-control" [(ngModel)]="totalcost" id="totalcost" name="totalcost">
-            </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-md" id="submit" name="Reserve" value="Reserve">
+            <label for="room_price">Total Cost</label>
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" #roomPriceInput="ngModel"
+              [(ngModel)]="room_price" id="room_price" name="room_price" disabled>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-md" id="submit" name="Reserve" [value]="modify">
           </div>
         </form>
+        <div class="modal-dialog" *ngIf="successbooking">
+          <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+              <h2 class="modal-title" id="standard-modalLabel" style="color: green;font-weight: bold;">Awesome!!<br>Booking Successful</h2>
+            </div>
+            <div class="modal-body" style="text-align:center">
+              You have successfully booked your room on {{room_details.start_date}} for {{number_of_guests}}
+              person(s) at {{room_details.room_location}}.<br>Looking forward to serve you.<br>We have added 50 reward points.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="closeModal()" data-bs-dismiss="modal">OK</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div>
+        <div class="modal-dialog" *ngIf="successmodification">
+          <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+              <h2 class="modal-title" id="standard-modalLabel" style="color: green;font-weight: bold;">Awesome!!<br>Modification Successful</h2>
+            </div>
+            <div class="modal-body" style="text-align:center">
+              You have successfully modified your room.<br>Looking forward to serve you.
+              <br>
+              <span *ngIf="modifiedAmount > 0">Your card will be charged with ${{modifiedAbs}}</span>
+              <span *ngIf="modifiedAmount < 0">You will be refunded ${{modifiedAbs}}</span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="closeModalModify()" data-bs-dismiss="modal">OK</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div>
       </div>
+
+      
     </div>
   </div>
 </section>

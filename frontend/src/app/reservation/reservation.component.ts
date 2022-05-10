@@ -5,167 +5,318 @@ import { GlobalService } from '../global.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatStartDate } from '@angular/material/datepicker';
 import * as _ from 'lodash'
-import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
+import { FormControl, NgForm } from '@angular/forms';
+import { ReservationService } from './reservation.service';
+import { SearchService } from '../home/search.service';
 
-interface ReservationInterface {
-  "first_name": string;
-  "last_name": string;
-  "email": string;
-  "roomno" : number;
-  "guests" : number;
-  "arrival" : Date;
-  "departure" : Date;
-  "roomtype" : any;
-  "amenities" : any;
-  "totalcost" :number
-
+interface formDataInterface {
+  "room_no": any;
+  "number_of_guests": any;
+  "start_day": Date;
+  "end_day": Date;
+  "booking_amenities": any;
+  "room_price": any,
+  "username": string;
+  "reward_points": any;
+  "booking_location":any;
+  "booking_room_type":any;
 };
+
+interface roomDataInterface {
+  "username": any;
+  "room_no": any;
+  "number_of_guests": any;
+  "booking_amenities": any;
+  "start_day": any;
+  "end_day": any;
+  "room_price": any;
+}
 
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.css']
 })
-export class ReservationComponent implements OnInit {
-  title = 'frontend';
-  isLoggedIn:boolean = false;
-  userDetails:any;
-  openDropdownVal:boolean=false;
 
-  guestnumber = 1;
-  first_name:any;
+export class ReservationComponent implements OnInit {
+  
+  title = 'frontend';
+  isLoggedIn: boolean = false;
+  userDetails: any;
+  openDropdownVal: boolean = false;
+  room_details:any;
+  value = 0;
+  room_price:any;
+  number_of_guests: number=1;
+  first_name: any;
   last_name: any;
   email: any;
+  username:any;
   rooms = 1;
   minDate: Date;
+  disable_start:boolean=false;
   minDate1: Date;
-
-  constructor(private router: Router, private globalService: GlobalService) {
-    let urlRoute = this.router.events.subscribe(
-      (event: NavigationEvent) => {
-        if (event instanceof NavigationStart) {
-          if ('/reservation' === event.url) {
-              // this.isLoggedIn = true
-              // this.userDetails = this.globalService.getUserDetails()
-              this.first_name = localStorage.getItem(this.first_name)
-              console.log(localStorage.getItem(this.first_name))
-              // this.last_name = this.userDetails.last_name
-              this.last_name = localStorage.getItem('last_name')
-              console.log(this.last_name)
-              // this.email = this.userDetails.email
-              this.email = localStorage.getItem(this.email)
-          }
-        }
-      })
-
-      this.minDate = new Date();
-      this.minDate1 = new Date();
-      this.minDate1.setDate(this.minDate1.getDate() + 1);
-
-
-   }
-    dropdownList = [
-      { item_id: 1, item_text: 'Classic' },
-      { item_id: 2, item_text: 'Deluxe' },
-      { item_id: 3, item_text: 'suite' }];
-    selectedItems = [
-      { item_id: 1, item_text: 'Classic' }
+  maxEnd: Date;
+  start_day:any;
+  end_day:any;
+  room_type:any;
+  dropdownList = [
+    'Studio', 'Suite', 'Deluxe'
     ];
-    dropdownSettings:IDropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+  selectedItems:string[] = [];
+  dropdownSettings: IDropdownSettings = {
+    singleSelection: false,
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
+  dropdownSettingsRoom: IDropdownSettings = {
+    singleSelection: true,
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
 
-    dropdownList1 = [
-      { item_id: 1, item_text: 'Daily Continental Breakfast' },
-      { item_id: 2, item_text: 'Access to fitness room' },
-      { item_id: 3, item_text: 'Access to Swimming Pool and Jacuzzi' },
-      { item_id: 4, item_text: 'Daily Parking' },
-      { item_id: 3, item_text: 'All meals included' }];
-    selectedItems1 = [
-    ];
+  dropdownList1 = [
+    'Daily Continental Breakfast',
+    'Access to fitness room',
+    'Access to Swimming Pool and Jacuzzi',
+    'Daily Parking',
+    'All meals included']
+  selectedItems1:string[]=[];
+  amenities_cost:number=0;
+  successbooking:boolean = false;
+  guestscap:number=0;
+  number_of_days:number=1;
+  room_number:any;
+  base_price:any;
+  modify:string='Reserve';
+  successmodification:boolean = false;
+  modifiedAmount:any;
+  modifiedAbs:any;
 
-  ngOnInit(): void{
+  constructor(private router: Router, private reservationService: ReservationService, private homeService:SearchService) {
+    this.minDate = new Date();
+    this.minDate1 = new Date();
+    this.maxEnd = new Date();
+    this.minDate1.setDate(this.minDate1.getDate() + 1)
+  }
+  ngOnInit(): void {
     this.first_name = localStorage.getItem('first_name')
     this.last_name = localStorage.getItem('last_name')
     this.email = localStorage.getItem('email')
-
+    this.username = localStorage.getItem('username')
+    this.selectedItems = []
+    if(localStorage.getItem('room_details')) {
+      this.room_details = localStorage.getItem('room_details')
+      this.room_details = JSON.parse(this.room_details)
+      this.room_price = this.room_details.price
+      this.room_type = this.room_details.room_type
+      this.room_number = this.room_details.room_no
+      if(this.room_type == 'Studio') {
+        this.guestscap = 2;
+      } else if(this.room_type == 'Suite') {
+        this.guestscap = 4;
+      } else if(this.room_type == 'Deluxe') {
+        this.guestscap = 6;
+      }
+      this.selectedItems.push(this.room_type)
+      let dateString:any = localStorage.getItem('roomstartsearch')
+      this.start_day = new Date(dateString)
+      this.disable_start = true
+      let date = new Date()
+      date = this.start_day
+      this.minDate1.setDate(date.getDate() + 1)
+      this.maxEnd.setDate(date.getDate() + 7)
+    } else if(localStorage.getItem('reservationDetails')){
+      this.modify = 'Modify'
+      this.room_details = localStorage.getItem('reservationDetails')
+      this.room_details = JSON.parse(this.room_details)
+      this.room_details = this.room_details[0]
+      // console.log(this.room_details)
+      this.room_price = this.room_details.total_amount
+      this.room_type = this.room_details.room_type
+      if(this.room_type == 'Studio') {
+        this.guestscap = 2;
+      } else if(this.room_type == 'Suite') {
+        this.guestscap = 4;
+      } else if(this.room_type == 'Deluxe') {
+        this.guestscap = 6;
+      }
+      this.number_of_guests = this.room_details.guests
+      this.selectedItems.push(this.room_details.room_type)
+      this.start_day = new Date(this.room_details.start_day)
+      this.end_day = new Date(this.room_details.end_day)
+      this.selectedItems1 = this.room_details.amenities
+      this.room_details.price = this.room_details.total_amount
+      this.base_price = this.room_details.total_amount
+      _.forEach(this.room_details.amenities, val => {
+        if (val == 'Daily Continental Breakfast') {
+          this.base_price = this.base_price - 50;
+          this.amenities_cost = this.amenities_cost + 50
+        }
+        else if (val == 'Access to fitness room') {
+          this.base_price = this.base_price - 50;
+          this.amenities_cost = this.amenities_cost + 50
+        }
+        else if (val == 'Access to Swimming Pool and Jacuzzi') {
+          this.base_price = this.base_price - 50;
+          this.amenities_cost = this.amenities_cost + 50
+        }
+        else if (val == 'Daily Parking') {
+          this.base_price = this.base_price;
+        }
+        else if (val == 'All meals included') {
+          this.base_price = this.base_price - 150;
+          this.amenities_cost = this.amenities_cost + 150
+        }
+      })
+      this.room_details.price = this.base_price / this.number_of_guests
+    }
   }
-  redirecttoHome() {
-    this.router.navigate(["home"])
+
+  onItemSelect(item: any) {
+    if (item == 'Daily Continental Breakfast') {
+      this.room_price = this.room_price + 50;
+      this.amenities_cost = this.amenities_cost + 50
+    }
+    else if (item == 'Access to fitness room') {
+      this.room_price = this.room_price + 50;
+      this.amenities_cost = this.amenities_cost + 50
+    }
+    else if (item == 'Access to Swimming Pool and Jacuzzi') {
+      this.room_price = this.room_price + 50;
+      this.amenities_cost = this.amenities_cost + 50
+    }
+    else if (item == 'Daily Parking') {
+      this.room_price = this.room_price;
+      this.amenities_cost = this.amenities_cost;
+    }
+    else if (item == 'All meals included') {
+      this.room_price = this.room_price + 150;
+      this.amenities_cost = this.amenities_cost + 150;
+    }
+  }
+  onSelectAll(items: any) {
+    this.room_price = this.room_price + 300;
+    this.amenities_cost = this.amenities_cost + 300
   }
 
-    value = 0;
-    totalcost = 0;
+  onDeSelectAll(items: any) {
+    this.selectedItems1 = []
+    this.room_price = this.room_details.price;
+    this.amenities_cost = this.amenities_cost
+  }
+
+  onVendorDeSelect(item: any) {
+    if (item == 'Daily Continental Breakfast') {
+      this.room_price = this.room_price - 50;
+      this.amenities_cost = this.amenities_cost - 50
+    }
+    else if (item == 'Access to fitness room') {
+      this.room_price = this.room_price - 50;
+      this.amenities_cost = this.amenities_cost - 50
+    }
+    else if (item == 'Access to Swimming Pool and Jacuzzi') {
+      this.room_price = this.room_price - 50;
+      this.amenities_cost = this.amenities_cost - 50
+    }
+    else if (item == 'Daily Parking') {
+      this.room_price = this.room_price;
+      this.amenities_cost = this.amenities_cost
+    }
+    else if (item == 'All meals included') {
+      this.room_price = this.room_price - 150;
+      this.amenities_cost = this.amenities_cost - 150
+    }
+  }
+
+  OnGuestSelect() {
+    this.room_price = this.room_details.price
+    this.room_price = this.room_price * this.rooms * this.number_of_guests  * this.number_of_days + this.amenities_cost
+  }
+
+  onReservation(form:NgForm) {
+    if (form.valid) {
+      if(this.modify == 'Reserve') {
+        this.start_day = moment(this.start_day).format('YYYY-MM-DD')
+        this.end_day = moment(this.end_day).format('YYYY-MM-DD')
+        let formData: formDataInterface = {
+          "username": this.username,
+          "room_no": this.room_details.room_no,
+          "number_of_guests": this.number_of_guests.toString(),
+          "booking_amenities": this.selectedItems1.toString(),
+          "start_day": this.start_day.toString(),
+          "end_day": this.end_day.toString(),
+          "room_price": this.room_price.toString(),
+          "reward_points": 50,
+          "booking_location": this.room_details.room_location,
+          "booking_room_type": this.room_details.room_type
+        }
+        this.reservationService.reservationServiceCall(formData)
+        .subscribe(response => {
+          this.successbooking = true;
+          this.reservationService.callRewards(formData)
+          .subscribe(response => {
+            console.log(response)
+          })
+        })
+      } else if (this.modify == 'Modify') {
+        this.start_day = moment(this.start_day).format('YYYY-MM-DD')
+        this.end_day = moment(this.end_day).format('YYYY-MM-DD')
+        let formData: roomDataInterface = {
+          "username": this.username,
+          "room_no": this.room_details.room_no,
+          "number_of_guests": this.number_of_guests.toString(),
+          "booking_amenities": this.selectedItems1.toString(),
+          "start_day": this.start_day.toString(),
+          "end_day": this.end_day.toString(),
+          "room_price": this.room_price.toString()
+        }
+        this.reservationService.modifyData(formData)
+        .subscribe(response => {
+          this.successmodification = true;
+          this.modifiedAmount = this.room_price - this.room_details.total_amount
+          this.modifiedAbs = Math.abs(this.modifiedAmount)
+        })
+      }
+    }
+  }
+  startDateChange() {
+    let day = new Date()
+    day = this.start_day
+    this.minDate1.setDate(day.getDate() + 1)
+    this.start_day = moment(this.start_day).format('YYYY-MM-DD')
+    this.homeService.searchService(this.start_day)
+    .subscribe(response => {
+      let resSTR = JSON.stringify(response);
+      let resJSON = JSON.parse(resSTR);
+      this.room_details = _.find(resJSON.data, {'room_no': this.room_number})
+      if(this.room_details) this.room_price = this.room_details.price
+    })
     
-    onItemSelect(item: any) {
-      if(item.item_text=='Daily Continental Breakfast'){
-        this.totalcost = this.totalcost + 50;
-      }
-      else if(item.item_text=='Access to fitness room'){
-        this.totalcost = this.totalcost + 50;
-      }
-      else if(item.item_text=='Access to Swimming Pool and Jacuzzi'){
-        this.totalcost = this.totalcost + 50;
-      }
-      else if(item.item_text=='Daily Parking'){
-        this.totalcost = this.totalcost;
-      }
-      else if(item.item_text=='All meals included'){
-        this.totalcost = this.totalcost + 150;
-      }
+  }
+  closeModal() {
+    this.successbooking = false
+    this.router.navigate(["bookings"])
+  }
 
-      console.log(this.totalcost)
-
+  calculateDiff(sentDate:any) {
+    var date1:any = new Date(sentDate);
+    var diffDays:any = Math.floor((date1 - this.start_day) / (1000 * 60 * 60 * 24));
+    this.number_of_days = diffDays
+    console.log(this.number_of_days)
+    if(this.number_of_days <= 0) {
+      this.number_of_days = 1
+    } else {
+      this.number_of_days = this.number_of_days + 1
     }
-    onSelectAll(items: any) {
-      console.log(items);
-      this.totalcost = 300;
-      console.log(this.totalcost)
-    }
-
-    onDeSelectAll(items: any) {
-      this.selectedItems1 = []
-      console.log(items);
-      this.totalcost = 0;
-      console.log(this.totalcost)
-    } 
-
-    onVendorDeSelect(item: any) {
-      let found = _.find(this.selectedItems1, item)
-      this.selectedItems = _.reject(this.selectedItems1, found)
-      console.log(this.selectedItems1)
-      if(item.item_text=='Daily Continental Breakfast'){
-        this.totalcost = this.totalcost - 50;
-      }
-      else if(item.item_text=='Access to fitness room'){
-        this.totalcost = this.totalcost - 50;
-      }
-      else if(item.item_text=='Access to Swimming Pool and Jacuzzi'){
-        this.totalcost = this.totalcost - 50;
-      }
-      else if(item.item_text=='Daily Parking'){
-        this.totalcost = this.totalcost;
-      }
-      else if(item.item_text=='All meals included'){
-        this.totalcost = this.totalcost - 150;
-      }
-      console.log(this.totalcost)
-      }
-
-      OnGuestSelect(){
-        console.log(this.guestnumber)
-       this.totalcost = this.totalcost * this.guestnumber;
-      }
-
-      OnRoomSelect(){
-        console.log(this.rooms)
-       this.totalcost = this.totalcost * this.rooms;
-      }
-   
+    this.room_price = this.room_details.price
+    this.room_price = this.room_price * this.rooms * this.number_of_guests  * this.number_of_days + this.amenities_cost
+  }
+  closeModalModify() {
+    this.successmodification = false
+    this.router.navigate(["bookings"])
+  }
 }

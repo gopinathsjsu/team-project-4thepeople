@@ -9,8 +9,24 @@
       <div class="row mb30">
         <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
           <p><img src="../assets/img/stars.png" class="svg"></p>
-          <label style="font-size:100px;">80</label>
+          <label style="font-size:100px;">{{reward_points}}</label>
         </div>
       </div>
+      <br><br><br><br>
+      <div class="row mb30">
+        <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
+          <h2>Your Current Level</h2>
+          <p><img src="../assets/img/curve.svg" class="svg"></p>
+        </div>
+      </div>
+      <div class="row mb30">
+        <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
+          <p><img *ngIf="level == 'silver'" style="height:300px; width: 300px;" src="../assets/img/silver.gif" class="svg"></p>
+          <p><img *ngIf="level == 'Gold'" style="height:400px; width: 400px;" src="../assets/img/gold.gif" class="svg"></p>
+          <p><img *ngIf="level == 'Diamond'" style="height:400px; width: 400px;" src="../assets/img/diam.gif" class="svg"></p>
+          <label style="font-size:80px;">{{level | uppercase}}</label>
+        </div>
+      </div>
+      
     </div>
   </section>

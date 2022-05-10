@@ -1,89 +1,87 @@
+<!-- START: header -->
 
-  <!-- START: header -->
+<header role="banner" class="probootstrap-header">
+  <!-- <div class="container"> -->
+  <div class="row">
+    <a href="#" class="probootstrap-burger-menu visible-xs"><i>Menu</i></a>
+    <div class="mobile-menu-overlay"></div>
 
-  <header role="banner" class="probootstrap-header">
-    <!-- <div class="container"> -->
-    <div class="row">
-        <a href="#" class="probootstrap-burger-menu visible-xs"><i>Menu</i></a>
-        <div class="mobile-menu-overlay"></div>
-
-        <nav role="navigation" class="probootstrap-nav hidden-xs">
-          <ul class="probootstrap-main-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li class="hidden-xs probootstrap-logo-center"><a href="index.html"><img src="../assets/img/Paradise.png" class="hires" width="181" height="50"></a></li>
-            <li><a style="cursor: pointer;" (click)="redirectToReserve()">Reservation</a></li>
-            <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="!isLoggedIn">Login</a></li>
-            <!-- <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="isLoggedIn">Hello, {{userDetails.first_name}}</a></li> -->
-            <li><button [disabled]="!isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
-              <label *ngIf="isLoggedIn" style="color: rgba(0,0,0,.5);
+    <nav role="navigation" class="probootstrap-nav hidden-xs">
+      <ul class="probootstrap-main-nav">
+        <li class="active"><a (click)="redirectToHome()">Home</a></li>
+        <li class="hidden-xs probootstrap-logo-center"><a href="index.html"><img src="../assets/img/Paradise.png"
+              class="hires" width="181" height="50"></a></li>
+        <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="!isLoggedIn">Login</a></li>
+        <!-- <li><a style="cursor: pointer;" (click)="redirect()" *ngIf="isLoggedIn">Hello, {{userDetails.first_name}}</a></li> -->
+        <li><button [disabled]="!isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+            (mouseover)="menuTrigger.openMenu()">
+            <label *ngIf="isLoggedIn" style="color: rgba(0,0,0,.5);
               font-size: 14px;">HELLO, {{userDetails.first_name | uppercase }}</label>
 
-            </button></li>
-            
-            <mat-menu #menu="matMenu" [overlapTrigger]="false">
-            <span (mouseleave)="menuTrigger.closeMenu()">
-              <button mat-menu-item (click)="bookings()">
-                <mat-icon>calendar_today</mat-icon>
-                <span>Your Bookings</span>
-          </button>
-          <button mat-menu-item (click)="rewards()">
-                <mat-icon>stars</mat-icon>
-                <span>Your Rewards</span>
-              </button>
-          <button mat-menu-item (click)="logout()">
-                <mat-icon>exit_to_app</mat-icon>
-                <span>Logout</span>
-              </button>
+          </button></li>
+
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <span (mouseleave)="menuTrigger.closeMenu()">
+            <button mat-menu-item (click)="bookings()">
+              <mat-icon>calendar_today</mat-icon>
+              <span>Your Bookings</span>
+            </button>
+            <button mat-menu-item (click)="rewards()">
+              <mat-icon>stars</mat-icon>
+              <span>Your Rewards</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Logout</span>
+            </button>
           </span>
-          </mat-menu>
-            <!-- <li><a style="cursor: pointer;" *ngIf="isLoggedIn">View Bookings</a></li>
+        </mat-menu>
+        <!-- <li><a style="cursor: pointer;" *ngIf="isLoggedIn">View Bookings</a></li>
             <li><a style="cursor: pointer;" *ngIf="isLoggedIn">Rewards</a></li>
             <li><a style="cursor: pointer;" *ngIf="isLoggedIn" (click)="logout()">Logout</a></li> -->
-          </ul>
-          <div class="extra-text visible-xs">
-            <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
-            <h5>Connect With Us</h5>
-            <ul class="social-buttons">
-              <li><a href="#"><i class="icon-twitter"></i></a></li>
-              <li><a href="#"><i class="icon-facebook2"></i></a></li>
-              <li><a href="#"><i class="icon-instagram2"></i></a></li>
-            </ul>
-          </div>
-        </nav>
-        </div>
-    <!-- </div> -->
-  </header>
-  <!-- END: header -->
-  <router-outlet></router-outlet>
+      </ul>
+      <div class="extra-text visible-xs">
+        <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+        <h5>Connect With Us</h5>
+        <ul class="social-buttons">
+          <li><a href="#"><i class="icon-twitter"></i></a></li>
+          <li><a href="#"><i class="icon-facebook2"></i></a></li>
+          <li><a href="#"><i class="icon-instagram2"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- </div> -->
+</header>
+<!-- END: header -->
+<router-outlet></router-outlet>
 
-  <!-- START: footer -->
-  <footer role="contentinfo" class="probootstrap-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="probootstrap-footer-widget">
-            <p class="mt40"><img src="assets/img/Paradisesm.png" class="hires" width="120" height="33"></p>
-            <p>Paradise is a Hotel Booking System developed by the team FourThePeople under the guidance of Professor Gopinath Vinodh for CMPE 202 - Software Systems Engineering</p>
-            <p><a href="#" class="link-with-icon">Learn More <i class=" icon-chevron-right"></i></a></p>
-          </div>
+<!-- START: footer -->
+<footer role="contentinfo" class="probootstrap-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="probootstrap-footer-widget">
+          <p class="mt40"><img src="assets/img/Paradisesm.png" class="hires" width="120" height="33"></p>
+          <p>Paradise is a Hotel Booking System developed by the team FourThePeople under the guidance of Professor
+            Gopinath Vinodh for CMPE 202 - Software Systems Engineering</p>
+          <p><a href="#" class="link-with-icon">Learn More <i class=" icon-chevron-right"></i></a></p>
         </div>
-        <div class="col-md-4">
-          <div class="probootstrap-footer-widget">
-            <h3>Contact</h3>
-            <ul class="probootstrap-contact-info">
-              <li><i class="icon-location2"></i> <span>1 Washington Sq, San Jose, CA 95192</span></li>
-              <li><i class="icon-mail"></i><span>aryan.jadon@sjsu.edu</span></li>
-              <li><i class="icon-mail"></i><span>swathi.anandram@sjsu.edu</span></li>
-              <li><i class="icon-mail"></i><span>shreya.nimbhorkar@sjsu.edu</span></li>
-              <li><i class="icon-mail"></i><span>harika.nalam@sjsu.edu</span></li>
-            </ul>
-            
-          </div>
+      </div>
+      <div class="col-md-4">
+        <div class="probootstrap-footer-widget">
+          <h3>Contact</h3>
+          <ul class="probootstrap-contact-info">
+            <li><i class="icon-location2"></i> <span>1 Washington Sq, San Jose, CA 95192</span></li>
+            <li><i class="icon-mail"></i><span>aryan.jadon@sjsu.edu</span></li>
+            <li><i class="icon-mail"></i><span>swathi.anandram@sjsu.edu</span></li>
+            <li><i class="icon-mail"></i><span>shreya.nimbhorkar@sjsu.edu</span></li>
+            <li><i class="icon-mail"></i><span>harika.nalam@sjsu.edu</span></li>
+          </ul>
+
         </div>
       </div>
     </div>
-  </footer>
-  <!-- END: footer -->
-
-  
-
+  </div>
+</footer>
+<!-- END: footer -->

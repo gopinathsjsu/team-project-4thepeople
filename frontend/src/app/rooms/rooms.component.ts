@@ -37,6 +37,8 @@ export class RoomsComponent implements OnInit {
     itemsShowLimit: 5,
     allowSearchFilter: true
   };
+  increase:any;
+  whyincrease:any;
   
   constructor(private globalService: GlobalService, private router: Router, private zone:NgZone) {
   }
@@ -45,6 +47,15 @@ export class RoomsComponent implements OnInit {
     this.roomDetails = localStorage.getItem("response");
     this.roomDetails = JSON.parse(this.roomDetails)
     this.roomDetails = Object.values(this.roomDetails)
+    this.increase = localStorage.getItem("increaseBy")
+    this.increase = JSON.parse(this.increase)
+    if(this.increase > 0) {
+      this.whyincrease = localStorage.getItem('whyincrease')
+      _.forEach(this.roomDetails, val => {
+        let percent = this.increase / 100 * val.price
+        val.price = val.price + percent
+      })
+    }
     this.groupByTypeDeluxe = _.filter(this.roomDetails, {'room_type': 'Deluxe'})
     this.dropdownList = [...new Set(this.groupByTypeDeluxe.map((item: { room_location: any; }) => item.room_location))]
     this.groupByTypeStudios = _.filter(this.roomDetails, {'room_type': 'Studio'})
@@ -64,4 +75,11 @@ export class RoomsComponent implements OnInit {
     this.groupByTypeStudiosUpdated = _.filter(this.groupByTypeStudios, {'room_location': this.selectedItemsStudios[0]})
     this.groupByTypeSuiteUpdated = _.filter(this.groupByTypeSuite, {'room_location': this.selectedItemsSuite[0]})
   }
+
+
+  reserve(room:any) {
+    localStorage.setItem('room_details', JSON.stringify(room))
+    this.router.navigate(["reservation"])
+  }
+  
 }
