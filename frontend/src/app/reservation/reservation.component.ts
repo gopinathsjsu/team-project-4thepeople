@@ -430,7 +430,7 @@ export class ReservationComponent implements OnInit {
   }
 
   redirectToHome() {
-    this.router.navigate(["home"])
+    this.router.navigate([""])
   }
   increaseGuestCap() {
     this.guestscap = this.rooms * this.originalguestcap

@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('email', resJSON.data.email)
         localStorage.setItem('isLogged', 'true');
         this.globalService.setUserDetails(this.userDetails);
-        this.router.navigate(["home"])
+        this.router.navigate([""])
       }, error => {
         this.unauthorized = 'Please enter correct username and password'
       })

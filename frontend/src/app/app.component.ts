@@ -52,7 +52,7 @@ export class AppComponent {
     let userDetails = {}
     this.globalService.setUserDetails(userDetails)
     localStorage.clear()
-    this.router.navigate(["home"])
+    this.router.navigate([""])
     location.reload()
   }
   bookings() {
@@ -64,6 +64,6 @@ export class AppComponent {
   }
 
   redirectToHome() {
-    this.router.navigate(["home"])
+    this.router.navigate([""])
   }
 }
