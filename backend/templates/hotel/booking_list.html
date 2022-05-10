@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Bookings List</title>
+{% endblock title %}
+
+{% block content %}
+    <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">
+        Booking Information
+    </h1>
+    <!-- Search section  -->
+    <div class="center-form" style="display: flex; justify-content: center;">
+        <form action="{% url 'booking_list' %}" method="GET" style="width: 500px;">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search " aria-label="" aria-describedby="basic-addon1" style="margin-right: 10px;"
+              name="search_query" value="{{ search_query }}"/>
+
+              <input class="btn btn-success" type="submit" value="Search"/>
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Room Number</th>
+                <th scope="col">User</th>
+                <th scope="col">Number of Guests</th>
+                <th scope="col">Booking Location</th>
+                <th scope="col">Room Type</th>
+                <th scope="col">Amenities</th>
+                <th scope="col">Starting Date</th>
+                <th scope="col">Ending Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Booked On</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <th scope="row">{{ booking.room_no }}</th>
+                    <td>{{ booking.user_id }}</td>
+                    <td>{{ booking.number_of_guests }}</td>
+                    <td>{{ booking.booking_location }}</td>
+                    <td>{{ booking.booking_room_type }}</td>
+                    <td>{{ booking.booking_amenities }}</td>
+                    <td>{{ booking.start_day }}</td>
+                    <td>{{ booking.end_day }}</td>
+                    <td>{{ booking.amount }}</td>
+                    <td>{{ booking.booked_on }}</td>
+                    <td>
+                         <a style="margin-right: 30px;" href="{% url 'edit_booking' booking.id %}">Edit</a>
+                        <a href="{% url 'delete_booking' booking.id %}">Remove</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock content %}

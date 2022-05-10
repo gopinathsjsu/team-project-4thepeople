@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Create Customer</title>
+{% endblock title %}
+
+{% block content %}
+    <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Add New Customer Information</h1>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="form-label" name="user_name">
+                                        Username
+                                    </label>
+                                    {{ form.username }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" name="email">
+                                        Email
+                                    </label>
+                                    {{ form.email }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" name="password">
+                                        Password
+                                    </label>
+                                    {{ form.password1 }}
+                                </div>
+
+                                 <div class="form-group">
+                                    <label class="form-label" name="password">
+                                        Confirm Password
+                                    </label>
+                                    {{ form.password2 }}
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit"
+                                            class="btn btn-lg btn-primary btn-block">
+                                        Register
+                                    </button>
+                                </div>
+    </form>
+{% endblock content %}
