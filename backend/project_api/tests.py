@@ -82,3 +82,81 @@ class BookRommTestCase(TestCase):
         }
         response_post = self.client.post('/api/booking/', booking_record)
         self.assertEqual(response_post.status_code, 200)
+
+    def test_delete_bookingdetails(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+        c = Client()
+        # c.force_login(user)
+        logged_in = c.login(username='testuser', password='12345')
+        room_record2 = {
+            "room_no": "131",
+            "room_type": "studio",
+            "price": 300.0,
+            "room_location": "sanjose",
+            "room_image": "http://image",
+            "no_of_days_advance": 2
+        }
+        response2 = self.client.post('/api/search/', room_record2)
+        booking_record = {
+            "room_no": 131,
+            "username": "testuser",
+            "number_of_guests": "2",
+            "booking_location": "sanjose",
+            "booking_room_type": "studio",
+            "start_day": '2022-05-16',
+            "end_day": '2022-05-17',
+            "room_price": 300.0,
+            "booking_amenities": "All meals included,Daily Parking"
+        }
+        response_post = self.client.post('/api/booking/', booking_record)
+        data = {
+            "username": "testuser",
+            "room_no": 131
+        }
+        response_delete = self.client.delete('/api/booking', data)
+        self.assertEqual(response_delete.status_code, 200)
+
+    def test_change_bookingdetails(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+        c = Client()
+        # c.force_login(user)
+        logged_in = c.login(username='testuser', password='12345')
+        room_record2 = {
+            "room_no": "131",
+            "room_type": "studio",
+            "price": 300.0,
+            "room_location": "sanjose",
+            "room_image": "http://image",
+            "no_of_days_advance": 2
+        }
+        response2 = self.client.post('/api/search/', room_record2)
+        booking_record = {
+            "room_no": 131,
+            "username": "testuser",
+            "number_of_guests": "2",
+            "booking_location": "sanjose",
+            "booking_room_type": "studio",
+            "start_day": '2022-05-16',
+            "end_day": '2022-05-17',
+            "room_price": 300.0,
+            "booking_amenities": "All meals included,Daily Parking"
+        }
+        response_post = self.client.post('/api/booking/', booking_record)
+        # changing number of guests to 4
+        booking_record_new = {
+            "room_no": 131,
+            "username": "testuser",
+            "number_of_guests": "4",
+            "booking_location": "sanjose",
+            "booking_room_type": "studio",
+            "start_day": '2022-05-16',
+            "end_day": '2022-05-17',
+            "room_price": 300.0,
+            "booking_amenities": "All meals included,Daily Parking"
+        }
+        response_put = self.client.put('/api/booking', booking_record_new)
+        self.assertEqual(response_put.status_code, 200)
