@@ -35,6 +35,10 @@ We have weekly meetings on Fridays and each sprint starting from  Mondays and la
 
 ![visual](https://user-images.githubusercontent.com/60109870/167354665-541c016e-807a-403f-ad5d-f9f50c2a86a8.png)
 
+## Use Case Diagram
+
+![UseCaseDiagram202group](https://user-images.githubusercontent.com/60109870/167540517-6f6a6b1c-0f7a-47ad-82cf-9a14e8ee2a2d.jpg)
+
 
 ## Tech Stack used
 
