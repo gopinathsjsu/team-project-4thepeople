@@ -35,20 +35,24 @@ export class LoginComponent implements OnInit {
       .subscribe(response => {
         let resSTR = JSON.stringify(response);
         let resJSON = JSON.parse(resSTR);
-        this.userDetails = {
-          'username': resJSON.data.username,
-          'first_name': resJSON.data.first_name,
-          'last_name': resJSON.data.last_name,
-          'email': resJSON.data.email,
-          'isLogged': true
+        if(resJSON.message == 'AUTHORIZED') {
+          this.userDetails = {
+            'username': resJSON.data.username,
+            'first_name': resJSON.data.first_name,
+            'last_name': resJSON.data.last_name,
+            'email': resJSON.data.email,
+            'isLogged': true
+          }
+          localStorage.setItem('username', resJSON.data.username)
+          localStorage.setItem('first_name', resJSON.data.first_name)
+          localStorage.setItem('last_name', resJSON.data.last_name)
+          localStorage.setItem('email', resJSON.data.email)
+          localStorage.setItem('isLogged', 'true');
+          this.globalService.setUserDetails(this.userDetails);
+          this.router.navigate([""])
+        } else {
+          this.unauthorized = 'Please enter correct username and password'
         }
-        localStorage.setItem('username', resJSON.data.username)
-        localStorage.setItem('first_name', resJSON.data.first_name)
-        localStorage.setItem('last_name', resJSON.data.last_name)
-        localStorage.setItem('email', resJSON.data.email)
-        localStorage.setItem('isLogged', 'true');
-        this.globalService.setUserDetails(this.userDetails);
-        this.router.navigate([""])
       }, error => {
         this.unauthorized = 'Please enter correct username and password'
       })
