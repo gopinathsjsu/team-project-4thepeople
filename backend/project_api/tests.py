@@ -2,44 +2,50 @@ from django.test import TestCase
 
 # Create your tests here.
 
-class BookingViewTestCase(TestCase):
-    def test_get_bookedRooms(self):
-        data = {
-            "username":"testuser"
+
+class RoomViewTestCase(TestCase):
+    def test_add_room(self):
+        room_record = {
+            "room_no": "126",
+            "room_type": "suite",
+            "price": 300.0,
+            "room_location": "sanjose",
+            "room_image": "http://image",
+            "no_of_days_advance": 2
         }
-        response  = self.client.get('/api/booking/', data)
+        response = self.client.post('/api/search/', room_record)
         self.assertEqual(response.status_code, 200)
 
-class SearchRoomView(TestCase):
-    def test_get_bookedRoomscase1(self):
-        data = {
-            "location":"testlocation"
+    def test_add_duplicate_room(self):
+        room_record1 = {
+            "room_no": "122",
+            "room_type": "suite",
+            "price": 300.0,
+            "room_location": "sanjose",
+            "room_image": "http://image",
+            "no_of_days_advance": 2
         }
-        response  = self.client.get('/api/booking/', data)
-        self.assertEqual(response.status_code, 200)
+        response1 = self.client.post('/api/search/', room_record1)
+        room_record2 = {
+            "room_no": "122",
+            "room_type": "studio",
+            "price": 300.0,
+            "room_location": "sanjose",
+            "room_image": "http://image",
+            "no_of_days_advance": 2
+        }
+        response2 = self.client.post('/api/search/', room_record2)
+        self.assertEqual(response2.status_code, 400)
 
-    def test_get_bookedRoomsCase2(self):
-        data = {
-            "username":"testuser"
+    def test_get_roomSearch(self):
+        room_record = {
+            "room_no": "123",
+            "room_type": "suite",
+            "price": 300.0,
+            "room_location": "sanjose",
+            "room_image": "http://image",
+            "no_of_days_advance": 2
         }
-        response  = self.client.get('/api/booking/', data)
-        self.assertEqual(response.status_code, 200)
-
-    def test_get_bookedRoomsCase3(self):
-        data = {
-            "price_start":"200",
-            "price_end" : "400"
-        }
-        response  = self.client.get('/api/booking/', data)
-        self.assertEqual(response.status_code, 200)
-
-    def test_get_bookedRoomsCase4(self):
-        data = {
-            "username":"testuser",
-            "price_start":"200",
-            "price_end" : "400",
-            "price_start":"200",
-            "price_end" : "400"
-        }
-        response  = self.client.get('/api/booking/', data)
+        response_post = self.client.post('/api/search/', room_record)
+        response = self.client.get('/api/search/')
         self.assertEqual(response.status_code, 200)
