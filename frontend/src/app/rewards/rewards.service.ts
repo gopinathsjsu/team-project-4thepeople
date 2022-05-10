@@ -13,4 +13,5 @@ export class RewardsService {
     formData.append('username', username)
     return this.httpClient.post('https://sw-engineering-system.herokuapp.com/accounts/api/profile/', formData)
   }
+  
 }

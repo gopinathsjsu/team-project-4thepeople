@@ -3,7 +3,7 @@
     <div class="row probootstrap-gutter40">
       <div class="col-md-8">
         <h2 class="mt0">Reservation</h2>
-        <form (submit)="onReservation(bookingForm)" class="probootstrap-form" #bookingForm="ngForm" *ngIf="!successbooking && !successmodification">
+        <form (submit)="onReservation(bookingForm)" class="probootstrap-form" #bookingForm="ngForm" *ngIf="!successbooking && !successmodification && !bookingerror">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -52,8 +52,8 @@
               <div class="form-group">
                 <label for="roomno">Number of Rooms</label>
                 <input [ngModelOptions]="{standalone: true}" type="number" min="1" [max]="totalrooms"
-                  class="form-control" readonly #roomssInput="ngModel" name="rooms" id="guests" #roomsInput ngModel
-                  [(ngModel)]="rooms" />
+                  class="form-control" #roomssInput="ngModel" name="rooms" id="guests" #roomsInput ngModel
+                  [(ngModel)]="rooms" (input)="increaseGuestCap()"/>
               </div>
             </div>
             <div class="col-md-6">
@@ -97,7 +97,7 @@
               [(ngModel)]="room_price" id="room_price" name="room_price" disabled>
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-md" id="submit" name="Reserve" [value]="modify">
+            <input type="submit" [disabled]="!end_day || !number_of_guests" class="btn btn-primary btn-md" id="submit" name="Reserve" [value]="modify">
           </div>
         </form>
         <div class="modal-dialog" *ngIf="successbooking">
@@ -106,8 +106,9 @@
               <h2 class="modal-title" id="standard-modalLabel" style="color: green;font-weight: bold;">Awesome!!<br>Booking Successful</h2>
             </div>
             <div class="modal-body" style="text-align:center">
-              You have successfully booked your room on {{room_details.start_date}} for {{number_of_guests}}
-              person(s) at {{room_details.room_location}}.<br>Looking forward to serve you.<br>We have added 50 reward points.<br>
+              You have successfully booked {{rooms}} room(s) on {{room_details.start_date}} for {{number_of_guests}}
+              person(s) at {{room_details.room_location}}.<br>Looking forward to serve you.<br>We have added {{rooms*50}} reward points.<br>
+              We have sent the booking details to your email: {{email}}<br>
               <span><a style="cursor: pointer; color: rgb(144, 52, 121)" (click)="redirectToHome()">Click here</a> to go back to the home page book another room</span>
             </div>
             <div class="modal-footer">
@@ -128,6 +129,20 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-light" (click)="closeModalModify()" data-bs-dismiss="modal">OK</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div>
+        <div class="modal-dialog" *ngIf="bookingerror">
+          <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+              <h2 class="modal-title" id="standard-modalLabel" style="color: red;font-weight: bold;">Oops!!<br>Booking Error</h2>
+            </div>
+            <div class="modal-body" style="text-align:center">
+              Booking already exists for some other person. Sorry for the inconvinience.
+              <span><a style="cursor: pointer; color: rgb(144, 52, 121)" (click)="redirectToHome()">Click here</a> to go back to the home page book another room</span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="closeModalBooking()" data-bs-dismiss="modal">OK</button>
             </div>
           </div><!-- /.modal-content -->
         </div>

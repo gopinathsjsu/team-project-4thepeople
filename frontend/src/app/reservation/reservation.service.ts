@@ -46,4 +46,18 @@ export class ReservationService {
 
     return this.httpClient.put('http://sw-engineering-system.herokuapp.com/api/booking/',formData)
   }
+
+  sendEmail(form:any) {
+    const formData = new FormData();
+    formData.append('room_no', form['room_no'])
+    formData.append('guest', form['number_of_guests'])
+    formData.append('start_day', form['start_day'])
+    formData.append('end_day', form['end_day'])
+    formData.append('total_amount', form['room_price'])
+    formData.append('username', form['username'])
+    formData.append('mails', form['email'])
+    formData.append('location', form['booking_location'])
+
+    return this.httpClient.post('https://wfhgr06xua.execute-api.us-east-1.amazonaws.com/dev/mail/sendmail/', formData);
+  }
 }
