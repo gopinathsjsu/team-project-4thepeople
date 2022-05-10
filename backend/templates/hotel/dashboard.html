@@ -1,35 +1,106 @@
-{% load static %}
-<!DOCTYPE html>
-<html class="js">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hotel Dashboard</title>
-    <link rel="stylesheet" href="{% static 'assets/css/dashlite41fe.css' %}">
-    <link id="skin-default" rel="stylesheet"  href="{% static 'assets/css/theme41fe.css' %}">
-</head>
-<body class="nk-body bg-white npc-general pg-auth">
-{% for message in messages %}
-  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    {{ message }}
-  </div>
-{% endfor %}
-<div class="nk-app-root">
-    <div class="nk-main ">
-        <div class="nk-wrap nk-wrap-nosidebar">
-            <div class="nk-content ">
-                <div class="nk-block nk-block-middle nk-auth-body wide-xs">
-                    <div class="brand-logo pb-4 text-center">
-                        <h2>Hotel Dashboard Page</h2>
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Rooms List</title>
+{% endblock title %}
+
+{% block content %}
+
+<div class="nk-content ">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">
+                                Dashboard Overview</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block">
+                    <div class="row g-gs">
+                        <div class="col-md-4">
+                            <div class="card card-bordered card-full">
+                                <div class="card-inner">
+                                    <div class="card-title-group align-start mb-0">
+                                        <div class="card-title"><h6 class="title">Total Bookings</h6></div>
+                                        <div class="card-tools"><em class="card-hint icon ni ni-help-fill"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="left"
+                                                                    title="Total Booking"></em></div>
+                                    </div>
+                                    <div class="card-amount"><span class="amount"> {{bookings_count}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-bordered card-full">
+                                <div class="card-inner">
+                                    <div class="card-title-group align-start mb-0">
+                                        <div class="card-title"><h6 class="title">Total Rooms</h6></div>
+                                        <div class="card-tools"><em class="card-hint icon ni ni-help-fill"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="left"
+                                                                    title="Total Room"></em></div>
+                                    </div>
+                                    <div class="card-amount"><span class="amount"> {{rooms_count}} </span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-bordered  card-full">
+                                <div class="card-inner">
+                                    <div class="card-title-group align-start mb-0">
+                                        <div class="card-title"><h6 class="title">Upcoming Revenue</h6></div>
+                                        <div class="card-tools"><em class="card-hint icon ni ni-help-fill"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="left"
+                                                                    title="Total Expenses"></em></div>
+                                    </div>
+                                    <div class="card-amount"><span class="amount"> {{ upcoming_revenue }} <span
+                                            class="currency currency-usd">USD</span></span></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4">
+                            <div class="card card-bordered card-full">
+                                <div class="card-inner d-flex flex-column h-100">
+                                    <div class="card-title-group mb-3">
+                                        <div class="card-title me-1">
+                                            <h5 class="title">
+                                                Top Booked Rooms
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="progress-list gy-3">
+                                        <div class="card-title">
+                                            <h6 class="title">Suite</h6>
+                                            <h5 class="title">{{Suite}}</h5>
+                                        </div>
+
+                                        <div class="card-title">
+                                            <h6 class="title">Studio</h6>
+                                            <h5 class="title">{{Studio}}</h5>
+                                        </div>
+
+                                        <div class="card-title">
+                                            <h6 class="title">Deluxe</h6>
+                                            <h5 class="title">{{Deluxe}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
-</html>
+</div>
+</div>
+</div>
+{% endblock content %}
