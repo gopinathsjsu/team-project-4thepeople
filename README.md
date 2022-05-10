@@ -57,7 +57,8 @@ The work is divided in a uniform manner so that everybody gets a chance to work 
 4) Harika Nalam - Backend and Frontend
 
 ## Weekly Scrum Task Board and Burndown Chart
-[Weekly Scrum Task Board.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8660114/Weekly.Scrum.Task.Board.xlsx)
+[Weekly.Scrum.Task.Board.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8660142/Weekly.Scrum.Task.Board.xlsx)
+
 
 
 ## UI Wireframes
