@@ -22,11 +22,12 @@ export class HomeComponent implements OnInit {
   minValue: number = 0;
   maxValue: number = 1000;
   minDate: Date;
+  enterdates: boolean = false;
   dateRange = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
   });
-  location:string = '';
+  location: string = '';
   start_date: string = '';
   options: Options = {
     floor: 0,
@@ -42,41 +43,41 @@ export class HomeComponent implements OnInit {
       }
     }
   };
-  dropdownSettings:IDropdownSettings = {
+  dropdownSettings: IDropdownSettings = {
     singleSelection: true,
     itemsShowLimit: 5,
     allowSearchFilter: true
   };
   dropdownList = ["Albany", "Ann Arbor",
-  "Arlington", "Athens",
-  "Atlanta", "Atlantic City",
-  "Austin", "Bakersfield", "Baltimore",
-  "Bellevue", "Berkeley", "Birmingham", "Bloomington",
-  "Boulder", "Buffalo",
-  "Burlington", "Cambridge",
-  "Champaign", "Charlotte",
-  "Chicago", "Cincinnati", "Clarksville", "Cleveland",
-  "Colorado Springs", "Columbia",
-  "Dallas",
-  "Dayton", "Denver", "Detroit",
-  "Durham",
-  "Fairfield", "Fargo",
-  "Fremont",
-  "Fresno", "Fullerton", "Gainesville",
-  "Hollywood",
-  "Houston", "Howell", "Huntington", "Huntington Beach", "Huntsville", "Independence",
-  "Irvine", "Jersey City",
-  "Kansas City",
-  "Lakewood",
-  "Las Vegas",
-  "Long Beach", "Los Angeles",
-  "New York", "New York City", "Newark", "Oakland",
-  "Portland", "Raleigh",
-  "Riverside", "Sacramento", "San Diego", "San Francisco", "San Jose", "Santa Barbara", "Santa Clara",
-  "Santa Clarita", "Santa Cruz", "Sunnyvale", "Syracuse",
-  "Tampa", "Tucson", "Washington",
-  "Waterloo"]
-  constructor(private router: Router, private searchService:SearchService, private globalService: GlobalService) {
+    "Arlington", "Athens",
+    "Atlanta", "Atlantic City",
+    "Austin", "Bakersfield", "Baltimore",
+    "Bellevue", "Berkeley", "Birmingham", "Bloomington",
+    "Boulder", "Buffalo",
+    "Burlington", "Cambridge",
+    "Champaign", "Charlotte",
+    "Chicago", "Cincinnati", "Clarksville", "Cleveland",
+    "Colorado Springs", "Columbia",
+    "Dallas",
+    "Dayton", "Denver", "Detroit",
+    "Durham",
+    "Fairfield", "Fargo",
+    "Fremont",
+    "Fresno", "Fullerton", "Gainesville",
+    "Hollywood",
+    "Houston", "Howell", "Huntington", "Huntington Beach", "Huntsville", "Independence",
+    "Irvine", "Jersey City",
+    "Kansas City",
+    "Lakewood",
+    "Las Vegas",
+    "Long Beach", "Los Angeles",
+    "New York", "New York City", "Newark", "Oakland",
+    "Portland", "Raleigh",
+    "Riverside", "Sacramento", "San Diego", "San Francisco", "San Jose", "Santa Barbara", "Santa Clara",
+    "Santa Clarita", "Santa Cruz", "Sunnyvale", "Syracuse",
+    "Tampa", "Tucson", "Washington",
+    "Waterloo"]
+  constructor(private router: Router, private searchService: SearchService, private globalService: GlobalService) {
     this.minDate = new Date()
   }
 
@@ -86,30 +87,35 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["login"])
   }
   search() {
-    let self = this
-    if(this.dateRange.value.start){
-      this.start_date = this.dateRange.value.start
-      this.start_date = moment(this.start_date).format('YYYY-MM-DD');
+    if (this.dateRange.value.start && this.dateRange.value.end) {
+      if (this.dateRange.value.start) {
+        this.start_date = this.dateRange.value.start
+        this.start_date = moment(this.start_date).format('YYYY-MM-DD');
+      }
+      else {
+        this.start_date =  moment().format('YYYY-MM-DD');
+      }
+      let formData: formDataInterface = {
+        "location": this.location,
+        "start_date": this.start_date,
+        "price_end": this.maxValue,
+        "price_start": this.minValue
+      }
+      let empty: any;
+      this.globalService.setRoomDetails(empty)
+      localStorage.setItem('location', this.location)
+      this.searchService.searchServiceCall(formData)
+        .subscribe(response => {
+          let resSTR = JSON.stringify(response);
+          let resJSON = JSON.parse(resSTR);
+          localStorage.setItem('response', JSON.stringify(resJSON.data));
+          localStorage.setItem('increaseBy', JSON.stringify(resJSON.pricing_data.IncreasedBy))
+          localStorage.setItem('whyincrease', JSON.stringify(resJSON.pricing_data.DynamicPricing))
+          localStorage.setItem('roomstartsearch', this.start_date)
+          this.router.navigate(["rooms"])
+        })
+    } else {
+      this.enterdates = true
     }
-    else {
-      this.start_date =  moment().format('YYYY-MM-DD');
-    }
-    let formData: formDataInterface = {
-      "location": this.location,
-      "start_date": this.start_date,
-      "price_end": this.maxValue,
-      "price_start": this.minValue
-    }
-    let empty: any;
-    this.globalService.setRoomDetails(empty)
-    localStorage.setItem('location', this.location)
-   this.searchService.searchServiceCall(formData)
-   .subscribe(response => {
-    let resSTR = JSON.stringify(response);
-    let resJSON = JSON.parse(resSTR);
-    localStorage.setItem('response', JSON.stringify(resJSON.data));
-    this.router.navigate(["rooms"])
-   }) 
   }
-  
 }
