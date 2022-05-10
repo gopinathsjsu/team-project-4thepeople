@@ -66,7 +66,7 @@
             <ng-container matColumnDef="update">
                 <mat-header-cell *matHeaderCellDef> Modify Reservation </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="accent" (click)="redirectToUpdate()">
+                  <button mat-icon-button color="accent" (click)="redirectToUpdate(element)">
                       <mat-icon class="mat-18">system_update</mat-icon>
                   </button>
                 </mat-cell>
@@ -96,6 +96,7 @@
             <div class="modal-body" style="text-align:center">
               You have successfully deleted your room on {{deletedRoom.start_day}} for {{deletedRoom.guests}}
               person(s) at {{deletedRoom.room_location}}.<br>
+              We have deducted 50 reward points<br>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-light" (click)="closeModal()" data-bs-dismiss="modal">OK</button>

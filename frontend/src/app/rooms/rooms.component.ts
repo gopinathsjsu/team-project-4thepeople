@@ -86,6 +86,16 @@ export class RoomsComponent implements OnInit {
   reserve(room:any) {
     if(localStorage.getItem('isLogged')=='true') {
       localStorage.setItem('room_details', JSON.stringify(room))
+      let foundValue:any;
+      if(room.room_type == 'Deluxe') {
+        foundValue = _.filter(this.groupByTypeDeluxe, {'room_location': room.room_location})
+      } else if(room.room_type == 'Suite') {
+        foundValue = _.filter(this.groupByTypeSuite, {'room_location': room.room_location})
+      } else if(room.room_type == 'Studio') {
+        foundValue = _.filter(this.groupByTypeStudios, {'room_location': room.room_location})
+      }
+      localStorage.setItem('roomcount', foundValue.length)
+      localStorage.setItem('allRoomsMatch', JSON.stringify(foundValue))
       this.router.navigate(["reservation"])
     } else {
       this.router.navigate(["login"])

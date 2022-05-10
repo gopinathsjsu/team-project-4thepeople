@@ -5,6 +5,10 @@ import { BookingsService } from './bookings.service';
 import * as _ from 'lodash'
 import * as moment from 'moment';
 
+interface rewards {
+  "username":any;
+  "reward_points":any;
+}
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
@@ -49,9 +53,9 @@ export class BookingsComponent implements OnInit {
     this.dataSource.data = [
     ]
   }
-  public redirectToUpdate = () => {
+  public redirectToUpdate = (element:any) => {
     localStorage.removeItem('room_details')
-    localStorage.setItem('reservationDetails', JSON.stringify(this.dataSource.data))
+    localStorage.setItem('reservationDetails', JSON.stringify(element))
     this.router.navigate(["reservation"])
   }
   public redirectToDelete = (roomno: string) => {
@@ -59,6 +63,14 @@ export class BookingsComponent implements OnInit {
     .subscribe(response=>{
       this.deletion = true
       this.deletedRoom = _.find(this.dataSource.data, {'room_no': roomno})
+      let formData: rewards = {
+        "username": this.username,
+        "reward_points": 50
+      }
+      this.bookingService.delRewards(formData)
+      .subscribe(response => {
+        console.log(response)
+      })
     })
   }
 

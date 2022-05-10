@@ -21,4 +21,14 @@ export class BookingsService {
 
     return this.httpClient.delete('http://sw-engineering-system.herokuapp.com/api/booking/',{body: form})
   }
+
+  
+  delRewards(formData: any) {
+    const formReq = new FormData();
+    formReq.append('username', formData['username'])
+    formReq.append('reward_points', formData['reward_points'])
+
+    return this.httpClient.delete('https://sw-engineering-system.herokuapp.com/accounts/api/manage_account/', {body:formReq})
+  }
+
 }

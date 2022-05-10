@@ -15,7 +15,7 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},  
   {path:'signup',component:SignupComponent},
-  {path:'rooms',component:RoomsComponent, canActivate: [AuthGuard] },
+  {path:'rooms',component:RoomsComponent},
   {path:'reservation',component:ReservationComponent, canActivate: [AuthGuard] },
   {path:'rewards', component:RewardsComponent, canActivate: [AuthGuard] },
   {path:'bookings',component:BookingsComponent, canActivate: [AuthGuard] },
