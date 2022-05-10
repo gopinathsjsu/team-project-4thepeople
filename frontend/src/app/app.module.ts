@@ -17,6 +17,12 @@ import { ReservationComponent } from './reservation/reservation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { RewardsComponent } from './rewards/rewards.component';
+import { BookingsComponent } from './bookings/bookings.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     HomeComponent,
     SignupComponent,
     RoomsComponent,
-    ReservationComponent
+    ReservationComponent,
+    RewardsComponent,
+    BookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +47,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatButtonModule, 
+    MatIconModule, 
+    MatMenuModule,
+    MatTableModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [],

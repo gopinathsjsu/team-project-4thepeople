@@ -1,0 +1,89 @@
+<section class="probootstrap-section probootstrap-section-dark">
+    <div class="container">
+      <div class="row mb30">
+        <div class="col-md-8 col-md-offset-2 probootstrap-section-heading text-center">
+          <h2>Your Bookings</h2>
+          <p><img src="../assets/img/curve.svg" class="svg"></p>
+        </div>
+      </div>
+      <div class="row">
+        <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="first_name">
+              <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.first_name}} </mat-cell>
+            </ng-container>
+          
+            <ng-container matColumnDef="last_name">
+              <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.last_name}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="guests">
+              <mat-header-cell *matHeaderCellDef>Number of Guests</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.guests}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="room_no">
+              <mat-header-cell *matHeaderCellDef>Room Number</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.room_no}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="room_type">
+              <mat-header-cell *matHeaderCellDef>Room Type</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.room_type}} </mat-cell>
+            </ng-container>
+          
+            <ng-container matColumnDef="start_day">
+              <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.start_day}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="end_day">
+              <mat-header-cell *matHeaderCellDef>End Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.end_day}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="room_location">
+              <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.room_location}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="total_amount">
+              <mat-header-cell *matHeaderCellDef>Total Amount</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.total_amount}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="amenities">
+              <mat-header-cell *matHeaderCellDef>Amenitites Included</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.amenities}} </mat-cell>
+            </ng-container>
+          
+            <ng-container matColumnDef="booked_date">
+              <mat-header-cell *matHeaderCellDef>Booking Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.booked_date}} </mat-cell>
+            </ng-container>
+          
+            <ng-container matColumnDef="update">
+                <mat-header-cell *matHeaderCellDef> Modify Reservation </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button color="accent" (click)="redirectToUpdate()">
+                      <mat-icon class="mat-18">system_update</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="delete">
+                  <mat-header-cell *matHeaderCellDef> Cancel Reservation </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                        <mat-icon class="mat-18">delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+          
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </section>

@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <label for="dates">Dates</label><br>
+          <label for="dates" class="mandatory">Dates</label><br>
           <mat-form-field [formGroup]="dateRange">
             <mat-label>Enter Booking Period</mat-label>
             <mat-date-range-input [rangePicker]="picker" [min]="minDate">
@@ -30,6 +30,7 @@
           <span class="probootstrap-cta-button-wrap"><a class="btn btn-primary" (click)="search()">Search</a></span>
         </div>
       </div>
+      <span *ngIf="enterdates" style="color: lightcoral; text-align: right;font-size: 20px;">Dates are mandatory</span>
     </div>
   </div>
 </section>
