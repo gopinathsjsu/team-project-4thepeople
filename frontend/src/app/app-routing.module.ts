@@ -8,16 +8,17 @@ import { SignupComponent } from './signup/signup.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { BookingsComponent } from './bookings/bookings.component';
+import { AuthGuard } from './auth-guard';
 
 const routes: Routes = [
   
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},  
   {path:'signup',component:SignupComponent},
-  {path:'rooms',component:RoomsComponent},
-  {path:'reservation',component:ReservationComponent},
-  {path:'rewards', component:RewardsComponent},
-  {path:'bookings',component:BookingsComponent},
+  {path:'rooms',component:RoomsComponent, canActivate: [AuthGuard] },
+  {path:'reservation',component:ReservationComponent, canActivate: [AuthGuard] },
+  {path:'rewards', component:RewardsComponent, canActivate: [AuthGuard] },
+  {path:'bookings',component:BookingsComponent, canActivate: [AuthGuard] },
   {path:'**', redirectTo:'home'}
 ];
 

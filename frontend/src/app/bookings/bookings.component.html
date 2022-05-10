@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="row">
-        <mat-table [dataSource]="dataSource">
+        <mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0 && !deletion">
             <ng-container matColumnDef="first_name">
               <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.first_name}} </mat-cell>
@@ -75,15 +75,33 @@
               <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef> Cancel Reservation </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                    <button mat-icon-button color="warn" *ngIf="!element.delete" (click)="redirectToDelete(element.room_no)">
                         <mat-icon class="mat-18">delete</mat-icon>
                     </button>
+                    <span *ngIf="element.delete">
+                      <span style="color: red;">Your Booking has been deleted</span>
+                    </span>
                   </mat-cell>
                 </ng-container>
           
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <span *ngIf="dataSource.data.length == 0" style="font-size: 20px;text-align: center;">You do not have any bookings!!</span>
+        <div class="modal-dialog" *ngIf="deletion">
+          <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+              <h2 class="modal-title" id="standard-modalLabel" style="color: green;font-weight: bold;">Awesome!!<br><span style="color: red;">Booking Deleted</span></h2>
+            </div>
+            <div class="modal-body" style="text-align:center">
+              You have successfully deleted your room on {{deletedRoom.start_day}} for {{deletedRoom.guests}}
+              person(s) at {{deletedRoom.room_location}}.<br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="closeModal()" data-bs-dismiss="modal">OK</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div>
       </div>
     </div>
   </section>
