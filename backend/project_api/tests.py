@@ -4,6 +4,14 @@ from django.test import Client
 
 # Create your tests here.
 
+class RegistrationViewtestCase(TestCase):
+    def test_create_user(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+        c = Client()
+        logged_in = c.login(username='testuser', password='12345')
+        self.assertEqual(logged_in, True)
 
 class RoomViewTestCase(TestCase):
     def test_add_room(self):
