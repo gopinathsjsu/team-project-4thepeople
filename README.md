@@ -127,11 +127,6 @@ Decorator Pattern is used during login check module, if admin tried to login, it
 ### Strategy
 1. We have used strategy dynamic pricing. For dynamic pricing, we have designed three different strategies and these three strategies are based on the day the customer booking hotel rooms. We have considered three different types of days that a customer can book rooms, weekdays, weekends, and holidays. Depending on the day customer requested for booking pricing differs. 
 2. For weekdays the price there will be no increase in the base price, coming to weekend booking the price increases by 5% and for booking on holidays the price increases by 10 % over the base price. 
-
-### Pros: 
-  The algorithm is loosely coupled and can be changed, replaced and it is easy to extended
-### Cons:
-  Should understand how strategies differ. Number of objects increases 
   
 ### Observer
 1. We have used an observer design pattern to notify the hotel management when a customer books a room and also sends the customer booking confirmation. 
