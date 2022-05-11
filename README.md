@@ -56,7 +56,8 @@ Employee Dashboard
 
 
 ## Architecture Diagram
-![Architecture202-4](https://user-images.githubusercontent.com/60109870/167284899-67d00010-65d0-4f39-ad29-ea435cc2ddf3.jpg)
+
+![Archidiag202](https://user-images.githubusercontent.com/60109870/167763963-5401ef91-8558-44e3-ade7-88baeaf47e8f.jpg)
 
 ## Class Diagram
 
