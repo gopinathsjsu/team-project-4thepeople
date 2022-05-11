@@ -21,7 +21,8 @@
 We have weekly meetings on Fridays and each sprint starting from  Mondays and lasting for a week.
 
 ## Weekly Scrum Task Board and Burndown Chart
-[Weekly.Scrum.Task.Board.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8660142/Weekly.Scrum.Task.Board.xlsx)
+
+[Weekly.Scrum.Task.Board.xlsx](https://github.com/gopinathsjsu/team-project-4thepeople/files/8666830/Weekly.Scrum.Task.Board.xlsx)
 
 
 ## Sprint Journal
