@@ -132,4 +132,4 @@ Django App four essential components.
 3. Views (views.py): Central controller to handle the user’s request and communicate to model objects. IT is like “servlets” of JavaEE.
 4. Templates(templates folder): Display response to the users in a generalized structure with customized information.
 
-
+![Django Patterns](https://raw.githubusercontent.com/gopinathsjsu/team-project-4thepeople/main/images/Django_Design_Pattern.png)
