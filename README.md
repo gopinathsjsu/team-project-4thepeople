@@ -6,13 +6,16 @@
 2. dev-harika: created for the development work assigned to harika-nalam.
 3. dev-swathi: created for the development work assigned to swathi-anandram.
 4. dev-shreya: created for the development work assigned to shreya-nimbhorkar.
-5. production: codebase deployed to the production environment.
+5. main: codebase deployed to the production environment.
 
 
 ## Project Folder Description
 1. frontend - contains the frontend apps codebase. 
 2. backend - contains the backend apps codebase.
 3. documentation - contains the documentation of the backend module.
+4. demo_screenshots - contains the screenshots of the website and API's.
+5. images - contains the images used for hotel records in database.
+6. mailServer - Email and Message Sending Serverless APP
 
 ## Scrum Meeting
 We have weekly meetings on Fridays and each sprint starting from  Mondays and lasting for a week.
@@ -86,4 +89,19 @@ Reservation Form:
 ![hotel_booking_form](https://user-images.githubusercontent.com/60109870/167287948-17e8f074-a9fc-408c-a7e9-30fd5e2f3be3.png)
 
 
+## Design Patterns Used
+1. Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
+Decorator Pattern is used during login check module, if admin tried to login, it will be redirected to a Hotel dashboard and if users tried to login- it will be redirected to a user profile page. 
 
+### Pros and Cons of Decorator Pattern
+
+### Pros 
+1. You can extend an object’s behavior without making a new subclass.
+2. You can add or remove responsibilities from an object at runtime.
+3. You can combine several behaviors by wrapping an object into multiple decorators.
+4. Single Responsibility Principle. You can divide a monolithic class that implements many possible variants of behavior into several smaller classes.
+
+### Cons
+1. It’s hard to remove a specific wrapper from the wrappers stack.
+2. It’s hard to implement a decorator in such a way that its behavior doesn’t depend on the order in the decorators stack.
+3. The initial configuration code of layers might look pretty ugly.
