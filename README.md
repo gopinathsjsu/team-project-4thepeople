@@ -105,3 +105,14 @@ Decorator Pattern is used during login check module, if admin tried to login, it
 1. It’s hard to remove a specific wrapper from the wrappers stack.
 2. It’s hard to implement a decorator in such a way that its behavior doesn’t depend on the order in the decorators stack.
 3. The initial configuration code of layers might look pretty ugly.
+
+
+## Functionality of Project
+1. Customer can Signup to create his profile with all the validations which checks if all the fields are entered properly, password has minimum of 8 characters, if the passwords match when confirming password, if the user already exists and if the the username and password is similar.
+2. Upon successful signup, user can login where the username and password is validated.
+3. User can search for hotels with location, date range and price range fields. User can search without populating location too.
+4. When user searches for weekday hotels, the prices are normal, but on weekends the dynamic pricing logic makes the price higher.
+5. Upon booking a room, user gets 50 reward points and an email is sent to the user with booking details.
+6. User can view his rewards and his levels which are silver, gold and diamond on view rewards page.
+7. User can view his bookings on view bookings tab.
+8. User can edit or delete his bookings.
