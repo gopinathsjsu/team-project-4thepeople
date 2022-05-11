@@ -37,6 +37,23 @@ We have weekly meetings on Fridays and each sprint starting from  Mondays and la
 
 3) Feedback: We constantly get feedback on the work that is being done as it provides a space for improvement by taking the positives of every feedback and improving the product accordingly.
 
+## Functionality of Project
+Customer Dashboard
+
+1. Customer can Signup to create his profile with all the validations which checks if all the fields are entered properly, password has minimum of 8 characters, if the passwords match when confirming password, if the user already exists and if the the username and password is similar.
+2. Upon successful signup, user can login where the username and password is validated.
+3. User can search for hotels with location, date range and price range fields. User can search without populating location too.
+4. When user searches for weekday hotels, the prices are normal, but on weekends the dynamic pricing logic makes the price higher.
+5. Upon booking a room, user gets 50 reward points and an email is sent to the user with booking details.
+6. User can view his rewards and his levels which are silver, gold and diamond on view rewards page.
+7. User can view his bookings on view bookings tab.
+8. User can edit or delete his bookings.
+
+Employee Dashboard
+
+1. Employee dashboard enables the employees to delete or edit a booking
+2. Employee can also add rooms
+
 
 ## Architecture Diagram
 ![Architecture202-4](https://user-images.githubusercontent.com/60109870/167284899-67d00010-65d0-4f39-ad29-ea435cc2ddf3.jpg)
@@ -107,15 +124,3 @@ Decorator Pattern is used during login check module, if admin tried to login, it
 3. The initial configuration code of layers might look pretty ugly.
 
 
-## Functionality of Project
-1. Customer can Signup to create his profile with all the validations which checks if all the fields are entered properly, password has minimum of 8 characters, if the passwords match when confirming password, if the user already exists and if the the username and password is similar.
-2. Upon successful signup, user can login where the username and password is validated.
-3. User can search for hotels with location, date range and price range fields. User can search without populating location too.
-4. When user searches for weekday hotels, the prices are normal, but on weekends the dynamic pricing logic makes the price higher.
-5. Upon booking a room, user gets 50 reward points and an email is sent to the user with booking details.
-6. User can view his rewards and his levels which are silver, gold and diamond on view rewards page.
-7. User can view his bookings on view bookings tab.
-8. User can edit or delete his bookings.
-
-1. Employee dashboard enables the employees to delete or edit a booking
-2. Employee can also add rooms
