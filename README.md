@@ -116,3 +116,6 @@ Decorator Pattern is used during login check module, if admin tried to login, it
 6. User can view his rewards and his levels which are silver, gold and diamond on view rewards page.
 7. User can view his bookings on view bookings tab.
 8. User can edit or delete his bookings.
+
+1. Employee dashboard enables the employees to delete or edit a booking
+2. Employee can also add rooms
