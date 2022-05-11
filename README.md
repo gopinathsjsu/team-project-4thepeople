@@ -38,7 +38,8 @@ We have weekly meetings on Fridays and each sprint starting from  Mondays and la
 3) Feedback: We constantly get feedback on the work that is being done as it provides a space for improvement by taking the positives of every feedback and improving the product accordingly.
 
 ## Functionality of Project
-Customer Dashboard
+
+### Customers View
 
 1. Customer can Signup to create his profile with all the validations which checks if all the fields are entered properly, password has minimum of 8 characters, if the passwords match when confirming password, if the user already exists and if the the username and password is similar.
 2. Upon successful signup, user can login where the username and password is validated.
@@ -49,11 +50,13 @@ Customer Dashboard
 7. User can view his bookings on view bookings tab.
 8. User can edit or delete his bookings.
 
-Employee Dashboard
+### Employee Dashboard
 
-1. Employee dashboard enables the employees to delete or edit a booking
-2. Employee can also add rooms
+Through Hotel Dashboard, hotel employees can Edit, Create, Update or Delete Operations on Rooms, Users and Bookings.
+Hotel Dashboard Also gives you an overview on all room booking data and hotel performance.
 
+
+#### Demo Screenshots of application can be found at - https://github.com/gopinathsjsu/team-project-4thepeople/tree/main/demo_screenshots
 
 ## Architecture Diagram
 
@@ -71,7 +74,7 @@ Employee Dashboard
 ## Tech Stack used
 
 1) frontend - Angular v12, JavaScript, HTML5, CSS3, Bootstrap
-2) backend - Django Rest framework
+2) backend - Django and Django Rest framework
 3) database - Postgres v13
 4) cloud provider - Digital Ocean
 
@@ -112,29 +115,47 @@ Reservation Form:
 Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
 Decorator Pattern is used during login check module, if admin tried to login, it will be redirected to a Hotel dashboard and if users tried to login- it will be redirected to a user profile page. 
 
-### Pros and Cons of Decorator Pattern
-
-### Pros 
+#### Pros 
 1. You can extend an object’s behavior without making a new subclass.
 2. You can add or remove responsibilities from an object at runtime.
 3. You can combine several behaviors by wrapping an object into multiple decorators.
 4. Single Responsibility Principle. You can divide a monolithic class that implements many possible variants of behavior into several smaller classes.
 
-### Cons
+#### Cons
 1. It’s hard to remove a specific wrapper from the wrappers stack.
 2. It’s hard to implement a decorator in such a way that its behavior doesn’t depend on the order in the decorators stack.
 3. The initial configuration code of layers might look pretty ugly.
 
 ### Strategy
+Strategy is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.
 1. We have used strategy dynamic pricing. For dynamic pricing, we have designed three different strategies and these three strategies are based on the day the customer booking hotel rooms. We have considered three different types of days that a customer can book rooms, weekdays, weekends, and holidays. Depending on the day customer requested for booking pricing differs. 
 2. For weekdays the price there will be no increase in the base price, coming to weekend booking the price increases by 5% and for booking on holidays the price increases by 10 % over the base price. 
-  
+
+#### Pros 
+1. You can swap algorithms used inside an object at runtime.
+2. You can isolate the implementation details of an algorithm from the code that uses it.
+3. You can replace inheritance with composition.
+4. Open/Closed Principle. You can introduce new strategies without having to change the context.
+
+#### Cons
+1. If you only have a couple of algorithms and they rarely change, there’s no real reason to overcomplicate the program with new classes and interfaces that come along with the pattern.
+2. Clients must be aware of the differences between strategies to be able to select a proper one.
+3. A lot of modern programming languages have functional type support that lets you implement different versions of an algorithm inside a set of anonymous functions. Then you could use these functions exactly as you’d have used the strategy objects, but without bloating your code with extra classes and interfaces.
+
 ### Observer
+Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
 1. We have used an observer design pattern to notify the hotel management when a customer books a room and also sends the customer booking confirmation. 
 2. The customer receives an email upon successful booking as a confirmation which helps him while check-in. 
 3. The hotels get notified through mail about room booking with customer details and prepare for customer visits.
 
-### About Django Design  Pattern
+#### Pros 
+1. Open/Closed Principle. You can introduce new subscriber classes without having to change the publisher’s code (and vice versa if there’s a publisher interface).
+2. You can establish relations between objects at runtime.
+
+#### Cons
+1. Subscribers are notified in random order.
+
+### Django Design  Pattern - MVT
 Django App four essential components.
 
 1. Models (models.py): POPOs (plain old python objects) classes to communicate with Database and preserve the data in OOP manner.
