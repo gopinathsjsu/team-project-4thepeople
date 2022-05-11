@@ -105,9 +105,10 @@ Login:
 Reservation Form:
 ![hotel_booking_form](https://user-images.githubusercontent.com/60109870/167287948-17e8f074-a9fc-408c-a7e9-30fd5e2f3be3.png)
 
-
 ## Design Patterns Used
-1. Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
+
+### Decorator
+Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
 Decorator Pattern is used during login check module, if admin tried to login, it will be redirected to a Hotel dashboard and if users tried to login- it will be redirected to a user profile page. 
 
 ### Pros and Cons of Decorator Pattern
@@ -122,5 +123,13 @@ Decorator Pattern is used during login check module, if admin tried to login, it
 1. It’s hard to remove a specific wrapper from the wrappers stack.
 2. It’s hard to implement a decorator in such a way that its behavior doesn’t depend on the order in the decorators stack.
 3. The initial configuration code of layers might look pretty ugly.
+
+### About Django Design  Pattern
+Django App four essential components.
+
+1. Models (models.py): POPOs (plain old python objects) classes to communicate with Database and preserve the data in OOP manner.
+2. Forms (forms.py): To collect the data from the users.
+3. Views (views.py): Central controller to handle the user’s request and communicate to model objects. IT is like “servlets” of JavaEE.
+4. Templates(templates folder): Display response to the users in a generalized structure with customized information.
 
 
